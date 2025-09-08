@@ -490,7 +490,7 @@
     async function checkPassword() {
         try {
             // 从GitHub获取密码文件
-            const response = await fetch('https://raw.githubusercontent.com/ZYDeutsch-Chen/VokabelnA1/main/a1-secret-verbs.txt');
+            const response = await fetch('https://zydeutsch-chen.github.io/VokabelnA1/a1-secret-verbs.txt');
             const text = await response.text();
             
             // 解析密码
@@ -541,7 +541,7 @@
     // 从远程加载动词数据
     async function loadVerbsData() {
         try {
-            const response = await fetch('https://raw.githubusercontent.com/ZYDeutsch-Chen/VokabelnA1/main/a1_constverbs1.json');
+            const response = await fetch('https://zydeutsch-chen.github.io/VokabelnA1/a1_constverbs1.json');
             const text = await response.text();
             // 移除可能的BOM标记并解析JSON
             const cleanText = text.trim().replace(/^\uFEFF/, '');
