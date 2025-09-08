@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>至元德语 - A1德语动词配价表</title>
+    <title>至元德语 - A1德语动词表</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -458,11 +458,11 @@
 </head>
 <body>
 
-<h1>至元德语 - A1德语动词配价表</h1>
+<h1>至元德语 - A1德语动词表</h1>
 
 <!-- 快速导航 -->
 <div class="quick-nav">
-    <button class="nav-btn" onclick="scrollToCategory('category1')"><i class="fas fa-walking"></i> 仅动词</button>
+    <button class="nav-btn" onclick="scrollToCategory('category1')"><i class="fas fa-walking"></i> 不及物</button>
     <button class="nav-btn" onclick="scrollToCategory('category2')"><i class="fas fa-equals"></i> 系动词</button>
     <button class="nav-btn" onclick="scrollToCategory('category3')"><i class="fas fa-bullseye"></i> 直宾</button>
     <button class="nav-btn" onclick="scrollToCategory('category4')"><i class="fas fa-hands-helping"></i> 受益</button>
@@ -476,8 +476,8 @@
 
 <div class="footer">
     <p id="total-count">总计: 176个 | 标注：三格(<span class="dat-bg">Dat</span>) 四格(<span class="akk-bg">Akk</span>) </p>
-    <p>© 2024 至元德语. 保留所有权利.</p>
-    <p>A1德语动词| 至元德语内部资料  |  转载请注明出处</p>
+    <p>© 2025 至元德语. 保留所有权利.</p>
+    <p>A1动词| 至元德语内部资料  | 转载请注明出处</p>
 </div>
 
 <!-- 滚动到顶部按钮 -->
@@ -541,7 +541,7 @@
     // 从远程加载动词数据
     async function loadVerbsData() {
         try {
-            const response = await fetch('https://raw.githubusercontent.com/ZYDeutsch-Chen/VokabelnA1/main/a1_constverbs1.js');
+            const response = await fetch('https://raw.githubusercontent.com/ZYDeutsch-Chen/VokabelnA1/main/a1_constverbs1.json');
             const text = await response.text();
             // 移除可能的BOM标记并解析JSON
             const cleanText = text.trim().replace(/^\uFEFF/, '');
@@ -555,7 +555,7 @@
     
     // 类别元数据
     const categoryMeta = {
-        category1: { id: "category1", title: "1. 仅动词", desktopTitle: "1. 主语 + 动词", count: 45 },
+        category1: { id: "category1", title: "1. 不及物动词", desktopTitle: "1. 主语 + 动词", count: 45 },
         category2: { id: "category2", title: "2. 系动词", desktopTitle: "2. 主语 + 系动词 + 表语", count: 15 },
         category3: { id: "category3", title: "3. <span class=\"akk-bg\">直接宾语</span>", desktopTitle: "3. 主语 + 动作 + <span class=\"akk-bg\">直接宾语</span>", count: 88 },
         category4: { id: "category4", title: "4. <span class=\"dat-bg\">受益者</span>", desktopTitle: "4. 主语 + 动作 + <span class=\"dat-bg\">受益者</span>", count: 9 },
