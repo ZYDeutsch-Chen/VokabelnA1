@@ -477,7 +477,7 @@
 <div class="footer">
     <p id="total-count">总计: 176个 | 标注：三格(<span class="dat-bg">Dat</span>) 四格(<span class="akk-bg">Akk</span>) </p>
     <p>© 2025 至元德语. 保留所有权利.</p>
-    <p>A1动词| 至元德语内部资料 | 转载请注明出处</p>
+    <p>A1动词| 至元德语内部资料  | 转载请注明出处</p>
 </div>
 
 <!-- 滚动到顶部按钮 -->
@@ -490,7 +490,7 @@
     async function checkPassword() {
         try {
             // 从GitHub获取密码文件
-            const response = await fetch('https://zydeutsch-chen.github.io/VokabelnA1/a1-secret-verbs.txt');
+            const response = await fetch('https://raw.githubusercontent.com/ZYDeutsch-Chen/VokabelnA1/main/a1-secret-verbs.txt');
             const text = await response.text();
             
             // 解析密码
@@ -541,7 +541,7 @@
     // 从远程加载动词数据
     async function loadVerbsData() {
         try {
-            const response = await fetch('https://zydeutsch-chen.github.io/VokabelnA1/a1_constverbs1.json');
+            const response = await fetch('https://raw.githubusercontent.com/ZYDeutsch-Chen/VokabelnA1/main/a1_constverbs1.json');
             const text = await response.text();
             // 移除可能的BOM标记并解析JSON
             const cleanText = text.trim().replace(/^\uFEFF/, '');
