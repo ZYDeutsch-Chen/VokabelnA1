@@ -1,0 +1,3743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>至元德语 A1动词卡片学习 V2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            padding: 15px;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        
+        /* 快速导航按钮 */
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0 20px;
+            padding: 0 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .quick-nav {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+                margin: 10px 0 15px;
+                padding: 0 2px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quick-nav {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4px;
+                margin: 8px 0 12px;
+            }
+        }
+        
+        .nav-btn {
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.85rem;
+            flex: 1;
+            min-width: 100px;
+            max-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .nav-btn i {
+            font-size: 0.9em;
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            transform: scale(1.05);
+        }
+        
+        /* 卡片容器 */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+            padding-bottom: 30px;
+        }
+        
+        .card {
+            height: 261px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 16px;
+        }
+        
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-front {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 1px solid #e0e0e0;
+            justify-content: space-between;
+        }
+        
+        .card-back {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: white;
+            transform: rotateY(180deg);
+            position: relative;
+            height: 100%;
+        }
+        
+        .verb-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .verb-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            line-height: 1.15;
+        }
+        
+        .speak-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .speak-btn:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+        
+        .verb-forms {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 0px;
+        }
+        
+        .form-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+            border-bottom: 1px dashed rgba(224,224,224,0.7);
+            line-height: 1.2;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            min-width: 70px;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+        
+        .form-value {
+            font-weight: normal;
+            color: #000000;
+            text-align: right;
+            flex: 1;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            line-height: 1.2;
+        }
+        
+        .form-value.highlight {
+            color: #000000 !important;
+            font-weight: normal;
+        }
+        
+        .form-value:not(.highlight) {
+            color: rgba(44, 62, 80, 0.5) !important;
+        }
+        
+        .verb-example {
+            background: rgba(236, 240, 241, 0.6);
+            padding: 11px;
+            border-radius: 8px;
+            margin-top: 0px;
+            font-style: italic;
+            font-size: 1.16rem; /* +10% from 1.05rem */
+            line-height: 1.35;
+            width: 98%;
+            margin: 12px auto 0;
+        }
+        
+        .card-back-content {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .card-back-top {
+            width: 98%;
+            margin: 15px auto 0;
+        }
+        
+        .card-back-bottom {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+        }
+        
+        /* 标注样式 */
+        .akk-bg {
+            background-color: #27ae60;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .dat-bg {
+            background-color: #2980b9;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .gen-bg {
+            background-color: #9b59b6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .valence {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            line-height: 1.4;
+        }
+        
+        .meaning {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ecf0f1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .card-hint {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .example-translation {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 6px;
+            font-style: italic;
+            width: 98%;
+            margin: 0 auto 0;
+            font-size: 1.25rem; /* match .valence */
+            line-height: 1.4;    /* match .valence */
+        }
+        
+        /* 加载状态 */
+        .loader {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .loader i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+        
+        /* 统计信息 */
+        .stats {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stats-content {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .stat-item {
+            flex: 1;
+        }
+        
+        .stat-item:nth-child(1) {
+            flex: 0.85; /* 总动词数 -15% */
+        }
+        
+        .stat-item:nth-child(2) {
+            flex: 0.85; /* 当前类别 -15% */
+        }
+        
+        .stat-item:nth-child(3) {
+            flex: 1.3; /* 类别描述 +30% */
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 2px;
+        }
+        
+        /* 响应式字体调整 */
+        .stat-item:nth-child(1) .stat-number,
+        .stat-item:nth-child(2) .stat-number {
+            font-size: 1.3rem; /* 较小的容器使用稍小的字体 */
+        }
+        
+        .stat-item:nth-child(3) .stat-number {
+            font-size: 1.7rem; /* 较大的容器使用稍大的字体 */
+        }
+        
+        .stat-item:nth-child(1) .stat-label,
+        .stat-item:nth-child(2) .stat-label {
+            font-size: 0.8rem; /* 较小的容器使用稍小的标签字体 */
+        }
+        
+        .stat-item:nth-child(3) .stat-label {
+            font-size: 1.0rem; /* 较大的容器使用稍大的标签字体 */
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+            }
+            
+            .quick-nav {
+                gap: 4px;
+                margin: 10px 0 15px;
+            }
+            
+            .nav-btn {
+                font-size: 0.75rem;
+                padding: 8px 6px;
+                min-width: 70px;
+                max-width: 100px;
+                border-radius: 15px;
+            }
+            
+            .nav-btn i {
+                font-size: 0.8em;
+            }
+            
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+            
+            .card {
+                height: 243px;
+                margin-bottom: 10px;
+            }
+            
+            .card-face {
+                padding: 12px;
+            }
+            
+            .verb-name {
+                font-size: 1.5rem;
+                line-height: 1.15;
+            }
+            
+            .form-label {
+                font-size: 0.9rem;
+                min-width: 58px;
+                line-height: 1.2;
+            }
+            
+            .form-value {
+                font-size: 1.05rem;
+                line-height: 1.2;
+            }
+            
+            .verb-example {
+                padding: 9px;
+                font-size: 1.05rem; /* +10% from 0.95rem */
+                margin-top: 0px;
+                line-height: 1.35;
+            }
+            
+            .meaning {
+                font-size: 1.2rem;
+            }
+            
+            .valence {
+                font-size: 1rem;
+                padding: 10px;
+            }
+            
+            .example-translation {
+                padding: 10px; /* match .valence */
+                font-size: 1rem; /* match .valence */
+                line-height: 1.4; /* match .valence */
+            }
+            
+            .stats {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.3rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .header p {
+                font-size: 0.8rem;
+            }
+            
+            .quick-nav {
+                gap: 3px;
+                margin: 8px 0 12px;
+            }
+            
+            .nav-btn {
+                font-size: 0.7rem;
+                padding: 6px 4px;
+                min-width: 60px;
+                max-width: 85px;
+                border-radius: 12px;
+            }
+            
+            .nav-btn i {
+                font-size: 0.75em;
+            }
+            
+            .card {
+                height: 225px;
+                margin-bottom: 8px;
+            }
+            
+            .card-face {
+                padding: 10px;
+            }
+            
+            .verb-name {
+                font-size: 1.3rem;
+                line-height: 1.15;
+            }
+            
+            .speak-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .form-label {
+                font-size: 0.82rem;
+                min-width: 50px;
+                line-height: 1.2;
+            }
+            
+            .form-value {
+                font-size: 0.95rem;
+                line-height: 1.2;
+            }
+            
+            .verb-example {
+                padding: 7px 9px;
+                font-size: 0.94rem; /* +10% from 0.85rem */
+                margin-top: 0px;
+                line-height: 1.35;
+            }
+            
+            .meaning {
+                font-size: 1.1rem;
+            }
+            
+            .valence {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+            
+            .example-translation {
+                padding: 8px; /* match .valence */
+                font-size: 0.9rem; /* match .valence */
+                line-height: 1.4; /* match .valence */
+            }
+            
+            .stats {
+                padding: 10px;
+                margin-bottom: 12px;
+            }
+            
+            .stat-number {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 0.8em;
+            }
+        }
+        
+        /* 横屏优化 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .card {
+                height: 180px;
+            }
+            
+            .verb-name {
+                font-size: 1.1rem;
+            }
+            
+            .form-value {
+                font-size: 0.9rem;
+            }
+            
+            .verb-example {
+                padding: 7px;
+                font-size: 0.88rem; /* +10% from 0.8rem */
+                margin-top: 6px;
+            }
+            
+            .meaning {
+                font-size: 1rem;
+            }
+            
+            .valence {
+                font-size: 0.9rem;
+                padding: 6px;
+            }
+            .example-translation {
+                font-size: 0.9rem; /* match .valence */
+                padding: 6px;      /* match .valence */
+                line-height: 1.4;  /* match .valence */
+            }
+        }
+        
+        /* 触摸设备优化 */
+        @media (hover: none) and (pointer: coarse) {
+            .card {
+                transition: transform 0.3s ease;
+            }
+            
+            .card:hover {
+                transform: scale(1.02);
+            }
+            
+            .card:active {
+                transform: scale(0.98);
+            }
+            
+            .nav-btn {
+                min-height: 44px; /* 确保触摸目标足够大 */
+                transition: all 0.2s ease;
+            }
+            
+            .nav-btn:active {
+                transform: scale(0.95);
+            }
+            
+            .speak-btn {
+                min-width: 44px;
+                min-height: 44px;
+                transition: all 0.2s ease;
+            }
+            
+            .speak-btn:active {
+                transform: scale(0.9);
+            }
+        }
+        
+        /* 移动端滚动优化 */
+        @media (max-width: 768px) {
+            body {
+                -webkit-overflow-scrolling: touch;
+                overflow-x: hidden;
+            }
+            
+            .cards-container {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+        
+        /* 防止移动端缩放 */
+        @media (max-width: 768px) {
+            .card {
+                touch-action: manipulation;
+            }
+            
+            .nav-btn {
+                touch-action: manipulation;
+            }
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-graduation-cap"></i> 至元德语 A1动词学习卡片 V2</h1>
+        <p>请选择动词类别</p>
+    </div>
+
+    <div class="stats">
+        <div class="stats-content">
+            <div class="stat-item">
+                <span class="stat-number" id="total-count">0</span>
+                <div class="stat-label">总动词数</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="category-count">0</span>
+                <div class="stat-label">当前类别</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-nav">
+        <button class="nav-btn" onclick="filterVerbs('category1', this)">
+            <i class="fas fa-walking"></i> 仅动词
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('category2', this)">
+            <i class="fas fa-equals"></i> 系动词
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('category3', this)">
+            <i class="fas fa-bullseye"></i> 直接宾语
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('category4', this)">
+            <i class="fas fa-hand-holding-heart"></i> 受益者
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('category5', this)">
+            <i class="fas fa-exchange-alt"></i> 受益者+宾语
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('category6', this)">
+            <i class="fas fa-magic"></i> 情态动词
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('category7', this)">
+            <i class="fas fa-user"></i> 反身动词
+        </button>
+        <button class="nav-btn" onclick="filterVerbs('全部随机', this)">
+            <i class="fas fa-list"></i> 全部随机
+        </button>
+    </div>
+
+    <div class="cards-container" id="cardsContainer">
+        <div class="loader">
+            <i class="fas fa-spinner fa-spin"></i>
+            <div>加载中...</div>
+        </div>
+    </div>
+
+    <!-- 专利提示板块 -->
+    <div class="footer">
+        <p id="footer-total-count">总计: 0个 | 标注：三格(<span class="dat-bg">Dat</span>) 四格(<span class="akk-bg">Akk</span>)</p>
+        <p>A1德语动词| 至元德语内部资料 </p>
+    </div>
+
+    <script>
+ const verbs = [
+    // 基础动词
+    {
+        infinitive: "sein",
+        pres3: "ist", 
+        pii: "gewesen",
+        example: "Ich bin Student.",
+        exampleTranslation: "我是学生。",
+        meaning: "是",
+        valence: "jd. ist + (Adj/N)",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "haben",
+        pres3: "hat",
+        pii: "gehabt", 
+        example: "Ich habe ein Buch.",
+        exampleTranslation: "我有一本书。",
+        meaning: "有",
+        valence: "jd. hat <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "werden",
+        pres3: "wird",
+        pii: "geworden",
+        example: "Er wird Lehrer.",
+        exampleTranslation: "他成为老师。",
+        meaning: "成为，变得",
+        valence: "jd. wird + (Adj/N)",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "müssen",
+        pres3: "muss",
+        pii: "gemusst",
+        example: "Ich muss lernen.",
+        exampleTranslation: "我必须学习。",
+        meaning: "必须",
+        valence: "jd. muss + Inf",
+        category: "category6",
+        verbType: "modal"
+    },
+    {
+        infinitive: "wollen",
+        pres3: "will",
+        pii: "gewollt",
+        example: "Ich will nach Deutschland gehen.",
+        exampleTranslation: "我想去德国。",
+        meaning: "想要",
+        valence: "jd. will + Inf",
+        category: "category6",
+        verbType: "modal"
+    },
+    {
+        infinitive: "sollen",
+        pres3: "soll",
+        pii: "gesollt",
+        example: "Du sollst fleißig lernen.",
+        exampleTranslation: "你应该努力学习。",
+        meaning: "应该",
+        valence: "jd. soll + Inf",
+        category: "category6",
+        verbType: "modal"
+    },
+    {
+        infinitive: "dürfen",
+        pres3: "darf",
+        pii: "gedurft",
+        example: "Du darfst hier rauchen.",
+        exampleTranslation: "你可以在这里吸烟。",
+        meaning: "可以，允许",
+        valence: "jd. darf + Inf",
+        category: "category6",
+        verbType: "modal"
+    },
+    {
+        infinitive: "mögen",
+        pres3: "mag",
+        pii: "gemocht",
+        example: "Ich mag Kaffee.",
+        exampleTranslation: "我喜欢咖啡。",
+        meaning: "喜欢",
+        valence: "jd. mag <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "modal"
+    },
+    {
+        infinitive: "lernen",
+        pres3: "lernt",
+        pii: "gelernt",
+        example: "Ich lerne Deutsch.",
+        exampleTranslation: "我学习德语。",
+        meaning: "学习",
+        valence: "jd. lernt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "kommen",
+        pres3: "kommt",
+        pii: "gekommen",
+        example: "Er kommt aus Deutschland.",
+        exampleTranslation: "他来自德国。",
+        meaning: "来",
+        valence: "jd. kommt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "verstehen",
+        pres3: "versteht",
+        pii: "verstanden",
+        example: "Ich verstehe dich.",
+        exampleTranslation: "我理解你。",
+        meaning: "理解",
+        valence: "jd. versteht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "machen",
+        pres3: "macht",
+        pii: "gemacht",
+        example: "Ich mache Hausaufgaben.",
+        exampleTranslation: "我做作业。",
+        meaning: "做，制作",
+        valence: "jd. macht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "essen",
+        pres3: "isst",
+        pii: "gegessen",
+        example: "Ich esse Brot.",
+        exampleTranslation: "我吃面包。",
+        meaning: "吃",
+        valence: "jd. isst <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "trinken",
+        pres3: "trinkt",
+        pii: "getrunken",
+        example: "Ich trinke Wasser.",
+        exampleTranslation: "我喝水。",
+        meaning: "喝",
+        valence: "jd. trinkt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "schlafen",
+        pres3: "schläft",
+        pii: "geschlafen",
+        example: "Ich schlafe gut.",
+        exampleTranslation: "我睡得很好。",
+        meaning: "睡觉",
+        valence: "jd. schläft",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "spielen",
+        pres3: "spielt",
+        pii: "gespielt",
+        example: "Ich spiele Fußball.",
+        exampleTranslation: "我踢足球。",
+        meaning: "玩，踢",
+        valence: "jd. spielt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "laufen",
+        pres3: "läuft",
+        pii: "gelaufen",
+        example: "Ich laufe im Park.",
+        exampleTranslation: "我在公园跑步。",
+        meaning: "跑，走",
+        valence: "jd. läuft",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "schwimmen",
+        pres3: "schwimmt",
+        pii: "geschwommen",
+        example: "Ich schwimme im See.",
+        exampleTranslation: "我在湖里游泳。",
+        meaning: "游泳",
+        valence: "jd. schwimmt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "fahren",
+        pres3: "fährt",
+        pii: "gefahren",
+        example: "Ich fahre mit dem Bus.",
+        exampleTranslation: "我坐公交车。",
+        meaning: "驾驶，乘坐",
+        valence: "jd. fährt",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "sehen",
+        pres3: "sieht",
+        pii: "gesehen",
+        example: "Ich sehe einen Film.",
+        exampleTranslation: "我看电影。",
+        meaning: "看，看见",
+        valence: "jd. sieht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "hören",
+        pres3: "hört",
+        pii: "gehört",
+        example: "Ich höre Musik.",
+        exampleTranslation: "我听音乐。",
+        meaning: "听，听见",
+        valence: "jd. hört <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "lesen",
+        pres3: "liest",
+        pii: "gelesen",
+        example: "Ich lese ein Buch.",
+        exampleTranslation: "我读书。",
+        meaning: "读，阅读",
+        valence: "jd. liest <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "schreiben",
+        pres3: "schreibt",
+        pii: "geschrieben",
+        example: "Ich schreibe einen Brief.",
+        exampleTranslation: "我写信。",
+        meaning: "写",
+        valence: "jd. schreibt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "kaufen",
+        pres3: "kauft",
+        pii: "gekauft",
+        example: "Ich kaufe Brot.",
+        exampleTranslation: "我买面包。",
+        meaning: "买",
+        valence: "jd. kauft <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "helfen",
+        pres3: "hilft",
+        pii: "geholfen",
+        example: "Ich helfe dir.",
+        exampleTranslation: "我帮助你。",
+        meaning: "帮助",
+        valence: "jd. hilft <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "strong"
+    },
+    // 仅动词类 (category1)
+    {
+        infinitive: "leben",
+        pres3: "lebt",
+        pii: "gelebt",
+        example: "Ich lebe in Berlin.",
+        exampleTranslation: "我住在柏林。",
+        meaning: "生活，居住",
+        valence: "jd. lebt",
+        category: "category1",
+        verbType: "weak"
+    },
+    // 系动词类 (category2)
+    {
+        infinitive: "bleiben",
+        pres3: "bleibt",
+        pii: "geblieben",
+        example: "Ich bleibe hier.",
+        exampleTranslation: "我留在这里。",
+        meaning: "保持，停留",
+        valence: "jd. bleibt + (Adj/N)",
+        category: "category2",
+        verbType: "mixed"
+    },
+    // 直接宾语类 (category3) - 更多动词
+    {
+        infinitive: "finden",
+        pres3: "findet",
+        pii: "gefunden",
+        example: "Ich finde das Buch.",
+        exampleTranslation: "我找到了这本书。",
+        meaning: "找到",
+        valence: "jd. findet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "nehmen",
+        pres3: "nimmt",
+        pii: "genommen",
+        example: "Ich nehme den Bus.",
+        exampleTranslation: "我乘坐公交车。",
+        meaning: "拿，取，乘坐",
+        valence: "jd. nimmt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "geben",
+        pres3: "gibt",
+        pii: "gegeben",
+        example: "Ich gebe dir das Buch.",
+        exampleTranslation: "我给你这本书。",
+        meaning: "给",
+        valence: "jd. gibt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "strong"
+    },
+    {
+        infinitive: "sagen",
+        pres3: "sagt",
+        pii: "gesagt",
+        example: "Ich sage dir die Wahrheit.",
+        exampleTranslation: "我告诉你真相。",
+        meaning: "说，告诉",
+        valence: "jd. sagt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    // 受益者类 (category4)
+    {
+        infinitive: "antworten",
+        pres3: "antwortet",
+        pii: "geantwortet",
+        example: "Ich antworte dem Lehrer.",
+        exampleTranslation: "我回答老师。",
+        meaning: "回答",
+        valence: "jd. antwortet <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "danken",
+        pres3: "dankt",
+        pii: "gedankt",
+        example: "Ich danke dir.",
+        exampleTranslation: "我感谢你。",
+        meaning: "感谢",
+        valence: "jd. dankt <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "gefallen",
+        pres3: "gefällt",
+        pii: "gefallen",
+        example: "Das Buch gefällt mir.",
+        exampleTranslation: "我喜欢这本书。",
+        meaning: "喜欢，中意",
+        valence: "etw. gefällt <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "strong"
+    },
+    {
+        infinitive: "schmecken",
+        pres3: "schmeckt",
+        pii: "geschmeckt",
+        example: "Das Essen schmeckt mir.",
+        exampleTranslation: "食物对我来说很美味。",
+        meaning: "尝起来",
+        valence: "etw. schmeckt <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "glauben",
+        pres3: "glaubt",
+        pii: "geglaubt",
+        example: "Ich glaube dir.",
+        exampleTranslation: "我相信你。",
+        meaning: "信任",
+        valence: "jd. glaubt <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "gratulieren",
+        pres3: "gratuliert",
+        pii: "gratuliert",
+        example: "Ich gratuliere dir.",
+        exampleTranslation: "我祝贺你。",
+        meaning: "祝贺",
+        valence: "jd. gratuliert <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "fehlen",
+        pres3: "fehlt",
+        pii: "gefehlt",
+        example: "Du fehlst mir.",
+        exampleTranslation: "我想念你。",
+        meaning: "缺少/想念",
+        valence: "jd. fehlt <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "gehören",
+        pres3: "gehört",
+        pii: "gehört",
+        example: "Das Buch gehört mir.",
+        exampleTranslation: "这本书属于我。",
+        meaning: "属于",
+        valence: "etw. gehört <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    // 反身动词类 (category7)
+    {
+        infinitive: "sich entschuldigen",
+        pres3: "sich entschuldigt",
+        pii: "sich entschuldigt",
+        example: "Ich entschuldige mich.",
+        exampleTranslation: "我道歉。",
+        meaning: "道歉",
+        valence: "jd. entschuldigt sich",
+        category: "category7",
+        verbType: "weak"
+    },
+    // 更多日常动词
+    {
+        infinitive: "öffnen",
+        pres3: "öffnet",
+        pii: "geöffnet",
+        example: "Ich öffne die Tür.",
+        exampleTranslation: "我开门。",
+        meaning: "打开",
+        valence: "jd. öffnet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "schließen",
+        pres3: "schließt",
+        pii: "geschlossen",
+        example: "Ich schließe die Tür.",
+        exampleTranslation: "我关门。",
+        meaning: "关闭",
+        valence: "jd. schließt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "kennen",
+        pres3: "kennt",
+        pii: "gekannt",
+        example: "Ich kenne ihn.",
+        exampleTranslation: "我认识他。",
+        meaning: "认识，了解",
+        valence: "jd. kennt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "warten",
+        pres3: "wartet",
+        pii: "gewartet",
+        example: "Ich warte auf den Bus.",
+        exampleTranslation: "我等公交车。",
+        meaning: "等待",
+        valence: "jd. wartet auf <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "suchen",
+        pres3: "sucht",
+        pii: "gesucht",
+        example: "Ich suche meinen Schlüssel.",
+        exampleTranslation: "我找我的钥匙。",
+        meaning: "寻找",
+        valence: "jd. sucht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "brauchen",
+        pres3: "braucht",
+        pii: "gebraucht",
+        example: "Ich brauche Hilfe.",
+        exampleTranslation: "我需要帮助。",
+        meaning: "需要",
+        valence: "jd. braucht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "kosten",
+        pres3: "kostet",
+        pii: "gekostet",
+        example: "Das Buch kostet 10 Euro.",
+        exampleTranslation: "这本书花费10欧元。",
+        meaning: "花费，价值",
+        valence: "etw. kostet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    // 更多仅动词类 (category1)
+    {
+        infinitive: "arbeiten",
+        pres3: "arbeitet",
+        pii: "gearbeitet",
+        example: "Ich arbeite heute.",
+        exampleTranslation: "我今天工作。",
+        meaning: "工作",
+        valence: "jd. arbeitet",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "tanzen",
+        pres3: "tanzt",
+        pii: "getanzt",
+        example: "Sie tanzt gut.",
+        exampleTranslation: "她跳舞很好。",
+        meaning: "跳舞",
+        valence: "jd. tanzt",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "frühstücken",
+        pres3: "frühstückt",
+        pii: "gefrühstückt",
+        example: "Wir frühstücken um 7 Uhr.",
+        exampleTranslation: "我们7点吃早餐。",
+        meaning: "吃早餐",
+        valence: "jd. frühstückt",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "frühstücken",
+        pres3: "frühstückt",
+        pii: "gefrühstückt",
+        example: "Ich frühstücke Brot.",
+        exampleTranslation: "我吃面包。",
+        meaning: "吃(早餐食物)",
+        valence: "jd. frühstückt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "rauchen",
+        pres3: "raucht",
+        pii: "geraucht",
+        example: "Er raucht nicht.",
+        exampleTranslation: "他不吸烟。",
+        meaning: "吸烟",
+        valence: "jd. raucht",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "rauchen",
+        pres3: "raucht",
+        pii: "geraucht",
+        example: "Er raucht Zigaretten.",
+        exampleTranslation: "他抽香烟。",
+        meaning: "抽(烟)",
+        valence: "jd. raucht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "lachen",
+        pres3: "lacht",
+        pii: "gelacht",
+        example: "Die Kinder lachen.",
+        exampleTranslation: "孩子们笑。",
+        meaning: "笑",
+        valence: "jd. lacht",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "reisen",
+        pres3: "reist",
+        pii: "gereist",
+        example: "Wir reisen nach Deutschland.",
+        exampleTranslation: "我们去德国旅行。",
+        meaning: "旅行",
+        valence: "jd. reist",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "wandern",
+        pres3: "wandert",
+        pii: "gewandert",
+        example: "Sie wandern gern.",
+        exampleTranslation: "他们喜欢徒步。",
+        meaning: "徒步",
+        valence: "jd. wandert",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "dauern",
+        pres3: "dauert",
+        pii: "gedauert",
+        example: "Der Unterricht dauert lange.",
+        exampleTranslation: "课程持续很长时间。",
+        meaning: "持续",
+        valence: "etw. dauert",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "enden",
+        pres3: "endet",
+        pii: "geendet",
+        example: "Der Unterricht endet um 12 Uhr.",
+        exampleTranslation: "课程12点结束。",
+        meaning: "结束",
+        valence: "etw. endet",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "regnen",
+        pres3: "regnet",
+        pii: "geregnet",
+        example: "Es regnet.",
+        exampleTranslation: "下雨了。",
+        meaning: "下雨",
+        valence: "es regnet",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "passieren",
+        pres3: "passiert",
+        pii: "passiert",
+        example: "Was ist passiert?",
+        exampleTranslation: "发生了什么？",
+        meaning: "发生",
+        valence: "etw. passiert",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "gehen",
+        pres3: "geht",
+        pii: "gegangen",
+        example: "Wohin gehen Sie?",
+        exampleTranslation: "您去哪里？",
+        meaning: "去",
+        valence: "jd. geht",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "fliegen",
+        pres3: "fliegt",
+        pii: "geflogen",
+        example: "Fliegen Sie nach Hause?",
+        exampleTranslation: "您飞回家吗？",
+        meaning: "飞",
+        valence: "jd./etw. fliegt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "ankommen",
+        pres3: "kommt an",
+        pii: "angekommen",
+        example: "Wann kommen Sie an?",
+        exampleTranslation: "您什么时候到达？",
+        meaning: "到达",
+        valence: "jd. kommt an",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "mitkommen",
+        pres3: "kommt mit",
+        pii: "mitgekommen",
+        example: "Kommen Sie mit!",
+        exampleTranslation: "您一起来吧！",
+        meaning: "一起来",
+        valence: "jd. kommt mit",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "steigen",
+        pres3: "steigt",
+        pii: "gestiegen",
+        example: "Er steigt auf den Stuhl.",
+        exampleTranslation: "他爬上椅子。",
+        meaning: "爬",
+        valence: "jd. steigt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "einsteigen",
+        pres3: "steigt ein",
+        pii: "eingestiegen",
+        example: "Steigen Sie bitte ein!",
+        exampleTranslation: "请上车！",
+        meaning: "上车/进入",
+        valence: "jd. steigt ein",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "aussteigen",
+        pres3: "steigt aus",
+        pii: "ausgestiegen",
+        example: "Steigen Sie an der nächsten Station aus!",
+        exampleTranslation: "请在下一站下车！",
+        meaning: "下车/出来",
+        valence: "jd. steigt aus",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "aufstehen",
+        pres3: "steht auf",
+        pii: "aufgestanden",
+        example: "Stehen Sie um 7 Uhr auf!",
+        exampleTranslation: "请7点起床！",
+        meaning: "起床/站起来",
+        valence: "jd. steht auf",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "umziehen",
+        pres3: "zieht um",
+        pii: "umgezogen",
+        example: "Ziehen Sie nächsten Monat um!",
+        exampleTranslation: "请下个月搬家！",
+        meaning: "搬家",
+        valence: "jd. zieht um",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "abfliegen",
+        pres3: "fliegt ab",
+        pii: "abgeflogen",
+        example: "Wann fliegt der Bus ab?",
+        exampleTranslation: "公交车什么时候起飞？",
+        meaning: "起飞",
+        valence: "etw. fliegt ab",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "abfahren",
+        pres3: "fährt ab",
+        pii: "abgefahren",
+        example: "Fährt der Bus pünktlich ab?",
+        exampleTranslation: "公交车准时出发吗？",
+        meaning: "出发",
+        valence: "jd./etw. fährt ab",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "sitzen",
+        pres3: "sitzt",
+        pii: "gesessen",
+        example: "Sitzen Sie am Tisch?",
+        exampleTranslation: "您坐在桌边吗？",
+        meaning: "坐",
+        valence: "jd. sitzt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "gewinnen",
+        pres3: "gewinnt",
+        pii: "gewonnen",
+        example: "Gewinnen Sie das Spiel?",
+        exampleTranslation: "您赢得比赛吗？",
+        meaning: "赢",
+        valence: "jd. gewinnt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "liegen",
+        pres3: "liegt",
+        pii: "gelegen",
+        example: "Liegt das Buch auf dem Tisch?",
+        exampleTranslation: "书在桌子上吗？",
+        meaning: "平放/位于",
+        valence: "etw. liegt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "riechen",
+        pres3: "riecht",
+        pii: "gerochen",
+        example: "Das Essen riecht gut.",
+        exampleTranslation: "食物闻起来很香。",
+        meaning: "闻",
+        valence: "jd./etw. riecht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "stehen",
+        pres3: "steht",
+        pii: "gestanden",
+        example: "Steht das Buch am Tisch?",
+        exampleTranslation: "书在桌边吗？",
+        meaning: "站立/位于",
+        valence: "jd./etw. steht",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "scheinen",
+        pres3: "scheint",
+        pii: "geschienen",
+        example: "Scheint die Sonne?",
+        exampleTranslation: "太阳照耀吗？",
+        meaning: "照耀",
+        valence: "etw. scheint",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "heißen",
+        pres3: "heißt",
+        pii: "geheißen",
+        example: "Wie heißen Sie?",
+        exampleTranslation: "您叫什么名字？",
+        meaning: "叫，名为",
+        valence: "jd. heißt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "aussehen",
+        pres3: "sieht aus",
+        pii: "ausgesehen",
+        example: "Sie sehen müde aus.",
+        exampleTranslation: "您看起来累了。",
+        meaning: "看起来",
+        valence: "jd. sieht aus",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "fernsehen",
+        pres3: "sieht fern",
+        pii: "ferngesehen",
+        example: "Sehen Sie oft fern?",
+        exampleTranslation: "您经常看电视吗？",
+        meaning: "看电视",
+        valence: "jd. sieht fern",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "sprechen",
+        pres3: "spricht",
+        pii: "gesprochen",
+        example: "Sprechen Sie Deutsch?",
+        exampleTranslation: "您说德语吗？",
+        meaning: "说话",
+        valence: "jd. spricht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "telefonieren",
+        pres3: "telefoniert",
+        pii: "telefoniert",
+        example: "Ich telefoniere mit meiner Mutter.",
+        exampleTranslation: "我和我妈妈通电话。",
+        meaning: "打电话",
+        valence: "jd. telefoniert",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "aufhören",
+        pres3: "hört auf",
+        pii: "aufgehört",
+        example: "Hören Sie mit dem Rauchen auf!",
+        exampleTranslation: "请停止吸烟！",
+        meaning: "停止",
+        valence: "jd. hört auf",
+        category: "category1",
+        verbType: "weak"
+    },
+    // 系动词类 (category2)
+    {
+        infinitive: "bekannt sein",
+        pres3: "ist bekannt",
+        example: "Er ist hier bekannt.",
+        exampleTranslation: "他在这里很熟悉。",
+        meaning: "熟悉的",
+        valence: "jd. ist bekannt",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "besetzt sein",
+        pres3: "ist besetzt",
+        example: "Der Platz ist besetzt.",
+        exampleTranslation: "座位被占用了。",
+        meaning: "被占用的",
+        valence: "etw. ist besetzt",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "verboten sein",
+        pres3: "ist verboten",
+        example: "Das ist hier verboten.",
+        exampleTranslation: "这里禁止这个。",
+        meaning: "被禁止的",
+        valence: "etw. ist verboten",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "geöffnet sein",
+        pres3: "ist geöffnet",
+        example: "Das Geschäft ist geöffnet.",
+        exampleTranslation: "商店开着。",
+        meaning: "开着的",
+        valence: "etw. ist geöffnet",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "geschlossen sein",
+        pres3: "ist geschlossen",
+        example: "Die Bank ist geschlossen.",
+        exampleTranslation: "银行关门了。",
+        meaning: "关闭的",
+        valence: "etw. ist geschlossen",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "geboren sein",
+        pres3: "ist geboren",
+        example: "Ich bin in Berlin geboren.",
+        exampleTranslation: "我出生在柏林。",
+        meaning: "出生的",
+        valence: "jd. ist geboren",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "verheiratet sein",
+        pres3: "ist verheiratet",
+        example: "Sie ist verheiratet.",
+        exampleTranslation: "她结婚了。",
+        meaning: "结婚的",
+        valence: "jd. ist verheiratet",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "gestorben sein",
+        pres3: "ist gestorben",
+        example: "Sein Großvater ist gestorben.",
+        exampleTranslation: "他的祖父去世了。",
+        meaning: "去世的",
+        valence: "jd. ist gestorben",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "weg sein",
+        pres3: "ist weg",
+        example: "Mein Schlüssel ist weg.",
+        exampleTranslation: "我的钥匙不见了。",
+        meaning: "离开/不见了",
+        valence: "jd./etw. ist weg",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "an sein",
+        pres3: "ist an",
+        example: "Das Licht ist an.",
+        exampleTranslation: "灯开着。",
+        meaning: "开着的(电器)",
+        valence: "etw. ist an",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "aus sein",
+        pres3: "ist aus",
+        example: "Der Computer ist aus.",
+        exampleTranslation: "电脑关着。",
+        meaning: "关闭的(电器)",
+        valence: "etw. ist aus",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "auf sein",
+        pres3: "ist auf",
+        example: "Das Fenster ist auf.",
+        exampleTranslation: "窗户开着。",
+        meaning: "向上开着",
+        valence: "etw. ist auf",
+        category: "category2",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "zu sein",
+        pres3: "ist zu",
+        example: "Die Tür ist zu.",
+        exampleTranslation: "门关着。",
+        meaning: "关闭的",
+        valence: "etw. ist zu",
+        category: "category2",
+        verbType: "irregular"
+    },
+    // 更多直接宾语类 (category3)
+    {
+        infinitive: "reparieren",
+        pres3: "repariert",
+        pii: "repariert",
+        example: "Er repariert das Auto.",
+        exampleTranslation: "他修理汽车。",
+        meaning: "修理",
+        valence: "jd. repariert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "buchstabieren",
+        pres3: "buchstabiert",
+        pii: "buchstabiert",
+        example: "Buchstabieren Sie Ihren Namen!",
+        exampleTranslation: "请拼写您的名字！",
+        meaning: "拼写",
+        valence: "jd. buchstabiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "studieren",
+        pres3: "studiert",
+        pii: "studiert",
+        example: "Sie studiert Musik.",
+        exampleTranslation: "她学习音乐。",
+        meaning: "学习(大学专业)",
+        valence: "jd. studiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "drucken",
+        pres3: "druckt",
+        pii: "gedruckt",
+        example: "Er druckt ein Dokument.",
+        exampleTranslation: "他打印一个文档。",
+        meaning: "打印",
+        valence: "jd. druckt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "drücken",
+        pres3: "drückt",
+        pii: "gedrückt",
+        example: "Sie drückt den Knopf.",
+        exampleTranslation: "她按按钮。",
+        meaning: "按",
+        valence: "jd. drückt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "grillen",
+        pres3: "grillt",
+        pii: "gegrillt",
+        example: "Wir grillen Fleisch.",
+        exampleTranslation: "我们烤肉。",
+        meaning: "烧烤",
+        valence: "jd. grillt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "fragen",
+        pres3: "fragt",
+        pii: "gefragt",
+        example: "Ich frage dich.",
+        exampleTranslation: "我问你。",
+        meaning: "问(某人)",
+        valence: "jd. fragt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "heiraten",
+        pres3: "heiratet",
+        pii: "geheiratet",
+        example: "Sie heiratet ihn.",
+        exampleTranslation: "她嫁给他。",
+        meaning: "结婚",
+        valence: "jd. heiratet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "holen",
+        pres3: "holt",
+        pii: "geholt",
+        example: "Ich hole die Post.",
+        exampleTranslation: "我去取邮件。",
+        meaning: "取",
+        valence: "jd. holt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "kochen",
+        pres3: "kocht",
+        pii: "gekocht",
+        example: "Er kocht Nudeln.",
+        exampleTranslation: "他煮面条。",
+        meaning: "煮",
+        valence: "jd. kocht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "legen",
+        pres3: "legt",
+        pii: "gelegt",
+        example: "Legen Sie das Buch auf den Tisch!",
+        exampleTranslation: "请把书放在桌子上！",
+        meaning: "平放",
+        valence: "jd. legt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "lieben",
+        pres3: "liebt",
+        pii: "geliebt",
+        example: "Ich liebe dich.",
+        exampleTranslation: "我爱你。",
+        meaning: "爱",
+        valence: "jd. liebt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "mieten",
+        pres3: "mietet",
+        pii: "gemietet",
+        example: "Wir mieten eine Wohnung.",
+        exampleTranslation: "我们租一套公寓。",
+        meaning: "租",
+        valence: "jd. mietet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "feiern",
+        pres3: "feiert",
+        pii: "gefeiert",
+        example: "Wir feiern Geburtstag.",
+        exampleTranslation: "我们庆祝生日。",
+        meaning: "庆祝",
+        valence: "jd. feiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "glauben",
+        pres3: "glaubt",
+        pii: "geglaubt",
+        example: "Ich glaube das nicht.",
+        exampleTranslation: "我不相信这个。",
+        meaning: "相信(某事)",
+        valence: "jd. glaubt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "zahlen",
+        pres3: "zahlt",
+        pii: "gezahlt",
+        example: "Wir zahlen die Rechnung.",
+        exampleTranslation: "我们付账单。",
+        meaning: "支付",
+        valence: "jd. zahlt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "bezahlen",
+        pres3: "bezahlt",
+        pii: "bezahlt",
+        example: "Bezahlen Sie die Rechnung!",
+        exampleTranslation: "请付账单！",
+        meaning: "支付",
+        valence: "jd. bezahlt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "stellen",
+        pres3: "stellt",
+        pii: "gestellt",
+        example: "Stellen Sie den Computer auf den Tisch!",
+        exampleTranslation: "请把电脑放在桌子上！",
+        meaning: "竖放",
+        valence: "jd. stellt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "bestellen",
+        pres3: "bestellt",
+        pii: "bestellt",
+        example: "Ich bestelle Pizza.",
+        exampleTranslation: "我点披萨。",
+        meaning: "订购",
+        valence: "jd. bestellt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "suchen",
+        pres3: "sucht",
+        pii: "gesucht",
+        example: "Ich suche meinen Schlüssel.",
+        exampleTranslation: "我找我的钥匙。",
+        meaning: "寻找",
+        valence: "jd. sucht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "besuchen",
+        pres3: "besucht",
+        pii: "besucht",
+        example: "Wir besuchen unsere Freunde.",
+        exampleTranslation: "我们拜访我们的朋友。",
+        meaning: "拜访",
+        valence: "jd. besucht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "besichtigen",
+        pres3: "besichtigt",
+        pii: "besichtigt",
+        example: "Wir besichtigen das Museum.",
+        exampleTranslation: "我们参观博物馆。",
+        meaning: "参观",
+        valence: "jd. besichtigt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "benutzen",
+        pres3: "benutzt",
+        pii: "benutzt",
+        example: "Ich benutze den Computer.",
+        exampleTranslation: "我使用电脑。",
+        meaning: "使用",
+        valence: "jd. benutzt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "verkaufen",
+        pres3: "verkauft",
+        pii: "verkauft",
+        example: "Wir verkaufen unser Auto.",
+        exampleTranslation: "我们卖我们的汽车。",
+        meaning: "卖出",
+        valence: "jd. verkauft <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "vermieten",
+        pres3: "vermietet",
+        pii: "vermietet",
+        example: "Er vermietet seine Wohnung.",
+        exampleTranslation: "他出租他的公寓。",
+        meaning: "出租",
+        valence: "jd. vermietet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "verdienen",
+        pres3: "verdient",
+        pii: "verdient",
+        example: "Sie verdient viel Geld.",
+        exampleTranslation: "她赚很多钱。",
+        meaning: "赚得",
+        valence: "jd. verdient <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "bringen",
+        pres3: "bringt",
+        pii: "gebracht",
+        example: "Bringen Sie mir das Buch!",
+        exampleTranslation: "请给我带书！",
+        meaning: "带来",
+        valence: "jd. bringt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "mixed"
+    },
+    // 受益者+宾语类 (category5)
+    {
+        infinitive: "erklären",
+        pres3: "erklärt",
+        pii: "erklärt",
+        example: "Ich erkläre dir die Regel.",
+        exampleTranslation: "我向你解释规则。",
+        meaning: "解释",
+        valence: "jd. erklärt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    {
+        infinitive: "erlauben",
+        pres3: "erlaubt",
+        pii: "erlaubt",
+        example: "Er erlaubt mir das.",
+        exampleTranslation: "他允许我这个。",
+        meaning: "允许",
+        valence: "jd. erlaubt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    {
+        infinitive: "erzählen",
+        pres3: "erzählt",
+        pii: "erzählt",
+        example: "Erzählen Sie mir eine Geschichte!",
+        exampleTranslation: "请给我讲一个故事！",
+        meaning: "讲述",
+        valence: "jd. erzählt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    {
+        infinitive: "schenken",
+        pres3: "schenkt",
+        pii: "geschenkt",
+        example: "Ich schenke dir ein Buch.",
+        exampleTranslation: "我送你一本书。",
+        meaning: "赠送",
+        valence: "jd. schenkt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    {
+        infinitive: "schicken",
+        pres3: "schickt",
+        pii: "geschickt",
+        example: "Ich schicke dir eine E-Mail.",
+        exampleTranslation: "我发给你一封邮件。",
+        meaning: "发送",
+        valence: "jd. schickt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    {
+        infinitive: "empfehlen",
+        pres3: "empfiehlt",
+        pii: "empfohlen",
+        example: "Ich empfehle dir das Restaurant.",
+        exampleTranslation: "我向你推荐这家餐厅。",
+        meaning: "推荐",
+        valence: "jd. empfiehlt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "strong"
+    },
+    // 情态动词类 (category6) - 已合并到前面的基础动词中
+    // 反身动词类 (category7)
+    {
+        infinitive: "sich duschen",
+        pres3: "sich duscht",
+        pii: "sich geduscht",
+        example: "Ich dusche mich.",
+        exampleTranslation: "我洗澡。",
+        meaning: "洗澡",
+        valence: "jd. duscht sich",
+        category: "category7",
+        verbType: "weak"
+    },
+    {
+        infinitive: "sich baden",
+        pres3: "sich badet",
+        pii: "sich gebadet",
+        example: "Ich bade mich.",
+        exampleTranslation: "我洗澡。",
+        meaning: "洗澡",
+        valence: "jd. badet sich",
+        category: "category7",
+        verbType: "weak"
+    },
+    {
+        infinitive: "sich anmelden",
+        pres3: "sich meldet an",
+        pii: "sich angemeldet",
+        example: "Ich melde mich an.",
+        exampleTranslation: "我报名。",
+        meaning: "报名",
+        valence: "jd. meldet sich an",
+        category: "category7",
+        verbType: "weak"
+    },
+    {
+        infinitive: "sich kümmern",
+        pres3: "sich kümmert",
+        pii: "sich gekümmert",
+        example: "Ich kümmere mich um das Kind.",
+        exampleTranslation: "我照顾孩子。",
+        meaning: "照顾",
+        valence: "jd. kümmert sich [um <span class=\"akk-bg\">Akk</span>]",
+        category: "category7",
+        verbType: "weak"
+    },
+    {
+        infinitive: "sich anziehen",
+        pres3: "sich zieht an",
+        pii: "sich angezogen",
+        example: "Du musst dich warm anziehen.",
+        exampleTranslation: "你必须穿暖和。",
+        meaning: "穿上",
+        valence: "jd. zieht sich an",
+        category: "category7",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "sich freuen",
+        pres3: "sich freut",
+        pii: "sich gefreut",
+        example: "Ich freue mich auf Ihre Antwort.",
+        exampleTranslation: "我期待您的回答。",
+        meaning: "期待/高兴",
+        valence: "jd. freut sich [auf/über <span class=\"akk-bg\">Akk</span>]",
+        category: "category7",
+        verbType: "weak"
+    },
+    // 新增的仅动词类 (category1)
+    {
+        infinitive: "waschen",
+        pres3: "wäscht",
+        pii: "gewaschen",
+        example: "Ich wasche das Auto.",
+        exampleTranslation: "我洗车。",
+        meaning: "洗",
+        valence: "jd. wäscht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "backen",
+        pres3: "bäckt",
+        pii: "gebacken",
+        example: "Ich backe einen Kuchen.",
+        exampleTranslation: "我烤蛋糕。",
+        meaning: "烘焙",
+        valence: "jd. bäckt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "aufräumen",
+        pres3: "räumt auf",
+        pii: "aufgeräumt",
+        example: "Ich räume mein Zimmer auf.",
+        exampleTranslation: "我整理我的房间。",
+        meaning: "整理",
+        valence: "jd. räumt <span class=\"akk-bg\">Akk</span> auf",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "Rad fahren",
+        pres3: "fährt Rad",
+        pii: "Rad gefahren",
+        example: "Ich fahre Fahrrad.",
+        exampleTranslation: "我骑自行车。",
+        meaning: "骑自行车",
+        valence: "jd. fährt Rad",
+        category: "category1",
+        verbType: "strong"
+    },
+    // 新增的直接宾语类 (category3)
+    {
+        infinitive: "bedeuten",
+        pres3: "bedeutet",
+        pii: "bedeutet",
+        example: "Was bedeutet das Wort?",
+        exampleTranslation: "这个词是什么意思？",
+        meaning: "意思是",
+        valence: "etw. bedeutet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "kennen lernen",
+        pres3: "lernt kennen",
+        pii: "kennen gelernt",
+        example: "Ich lerne dich kennen.",
+        exampleTranslation: "我认识你。",
+        meaning: "结识",
+        valence: "jd. lernt <span class=\"akk-bg\">Akk</span> kennen",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "unterschreiben",
+        pres3: "unterschreibt",
+        pii: "unterschrieben",
+        example: "Unterschreiben Sie das Dokument!",
+        exampleTranslation: "请在文件上签名！",
+        meaning: "签名",
+        valence: "jd. unterschreibt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "beginnen",
+        pres3: "beginnt",
+        pii: "begonnen",
+        example: "Wir beginnen den Unterricht.",
+        exampleTranslation: "我们开始上课。",
+        meaning: "开始",
+        valence: "jd. beginnt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "bekommen",
+        pres3: "bekommt",
+        pii: "bekommen",
+        example: "Ich bekomme einen Brief.",
+        exampleTranslation: "我收到一封信。",
+        meaning: "收到",
+        valence: "jd. bekommt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "überweisen",
+        pres3: "überweist",
+        pii: "überwiesen",
+        example: "Ich überweise Geld.",
+        exampleTranslation: "我汇款。",
+        meaning: "汇款",
+        valence: "jd. überweist <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "tun",
+        pres3: "tut",
+        pii: "getan",
+        example: "Was tun Sie?",
+        exampleTranslation: "您做什么？",
+        meaning: "做",
+        valence: "jd. tut <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "anrufen",
+        pres3: "ruft an",
+        pii: "angerufen",
+        example: "Rufen Sie mich an!",
+        exampleTranslation: "请给我打电话！",
+        meaning: "打电话",
+        valence: "jd. ruft <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "anbieten",
+        pres3: "bietet an",
+        pii: "angeboten",
+        example: "Ich biete Hilfe an.",
+        exampleTranslation: "我提供帮助。",
+        meaning: "提供",
+        valence: "jd. bietet <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "mitbringen",
+        pres3: "bringt mit",
+        pii: "mitgebracht",
+        example: "Bringen Sie etwas mit!",
+        exampleTranslation: "请带些东西来！",
+        meaning: "携带",
+        valence: "jd. bringt <span class=\"akk-bg\">Akk</span> mit",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "vergessen",
+        pres3: "vergisst",
+        pii: "vergessen",
+        example: "Ich vergesse immer die Hausaufgaben.",
+        exampleTranslation: "我总是忘记作业。",
+        meaning: "忘记",
+        valence: "jd. vergisst <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "halten",
+        pres3: "hält",
+        pii: "gehalten",
+        example: "Halten Sie meine Hand!",
+        exampleTranslation: "请握住我的手！",
+        meaning: "持握",
+        valence: "jd. hält <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "anfangen",
+        pres3: "fängt an",
+        pii: "angefangen",
+        example: "Fangen Sie die Arbeit an!",
+        exampleTranslation: "请开始工作！",
+        meaning: "开始",
+        valence: "jd. fängt <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "abgeben",
+        pres3: "gibt ab",
+        pii: "abgegeben",
+        example: "Geben Sie die Hausaufgaben ab!",
+        exampleTranslation: "请交作业！",
+        meaning: "递交",
+        valence: "jd. gibt <span class=\"akk-bg\">Akk</span> ab",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "einladen",
+        pres3: "lädt ein",
+        pii: "eingeladen",
+        example: "Ich lade dich ein.",
+        exampleTranslation: "我邀请你。",
+        meaning: "邀请",
+        valence: "jd. lädt <span class=\"akk-bg\">Akk</span> ein",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "mitnehmen",
+        pres3: "nimmt mit",
+        pii: "mitgenommen",
+        example: "Nehmen Sie den Regenschirm mit!",
+        exampleTranslation: "请带上雨伞！",
+        meaning: "带走",
+        valence: "jd. nimmt <span class=\"akk-bg\">Akk</span> mit",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "anklicken",
+        pres3: "klickt an",
+        pii: "angeklickt",
+        example: "Klicken Sie den Button an!",
+        exampleTranslation: "请点击按钮！",
+        meaning: "点击",
+        valence: "jd. klickt <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "ankreuzen",
+        pres3: "kreuzt an",
+        pii: "angekreuzt",
+        example: "Kreuzen Sie die Antwort an!",
+        exampleTranslation: "请在答案上打勾！",
+        meaning: "打勾",
+        valence: "jd. kreuzt <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "einkaufen",
+        pres3: "kauft ein",
+        pii: "eingekauft",
+        example: "Ich kaufe Lebensmittel ein.",
+        exampleTranslation: "我采购食品。",
+        meaning: "采购",
+        valence: "jd. kauft <span class=\"akk-bg\">Akk</span> ein",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "abholen",
+        pres3: "holt ab",
+        pii: "abgeholt",
+        example: "Holen Sie mich ab!",
+        exampleTranslation: "请来接我！",
+        meaning: "接",
+        valence: "jd. holt <span class=\"akk-bg\">Akk</span> ab",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "ausfüllen",
+        pres3: "füllt aus",
+        pii: "ausgefüllt",
+        example: "Füllen Sie das Formular aus!",
+        exampleTranslation: "请填写表格！",
+        meaning: "填写",
+        valence: "jd. füllt <span class=\"akk-bg\">Akk</span> aus",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "ausmachen",
+        pres3: "macht aus",
+        pii: "ausgemacht",
+        example: "Machen Sie das Licht aus!",
+        exampleTranslation: "请关灯！",
+        meaning: "关闭(电器)",
+        valence: "jd. macht <span class=\"akk-bg\">Akk</span> aus",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "anmachen",
+        pres3: "macht an",
+        pii: "angemacht",
+        example: "Machen Sie das Licht an!",
+        exampleTranslation: "请开灯！",
+        meaning: "打开(电器)",
+        valence: "jd. macht <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "aufmachen",
+        pres3: "macht auf",
+        pii: "aufgemacht",
+        example: "Machen Sie das Fenster auf!",
+        exampleTranslation: "请打开窗户！",
+        meaning: "(物理)打开",
+        valence: "jd. macht <span class=\"akk-bg\">Akk</span> auf",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "zumachen",
+        pres3: "macht zu",
+        pii: "zugemacht",
+        example: "Machen Sie die Tür zu!",
+        exampleTranslation: "请关门！",
+        meaning: "(物理)关闭",
+        valence: "jd. macht <span class=\"akk-bg\">Akk</span> zu",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "mitmachen",
+        pres3: "macht mit",
+        pii: "mitgemacht",
+        example: "Machen Sie das Spiel mit?",
+        exampleTranslation: "您参加游戏吗？",
+        meaning: "参加",
+        valence: "jd. macht <span class=\"akk-bg\">Akk</span> mit",
+        category: "category3",
+        verbType: "weak"
+    },
+    // 新增的情态动词类 (category6)
+    {
+        infinitive: "möchten",
+        pres3: "möchte",
+        pii: "gemöcht",
+        example: "Ich möchte essen.",
+        exampleTranslation: "我想吃饭。",
+        meaning: "想要",
+        valence: "jd. möchte + Inf",
+        category: "category6",
+        verbType: "modal"
+    },
+    {
+        infinitive: "können",
+        pres3: "kann",
+        pii: "gekonnt",
+        example: "Ich kann Deutsch sprechen.",
+        exampleTranslation: "我会说德语。",
+        meaning: "能够，会",
+        valence: "jd. kann + Inf",
+        category: "category6",
+        verbType: "modal"
+    },
+    // 增补数据
+    {
+        infinitive: "markieren",
+        pres3: "markiert",
+        pii: "markiert",
+        example: "Ich markiere die wichtigen Stellen.",
+        exampleTranslation: "我标记重要的地方。",
+        meaning: "标记",
+        valence: "jd. markiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "wohnen",
+        pres3: "wohnt",
+        pii: "gewohnt",
+        example: "Ich wohne in München.",
+        exampleTranslation: "我住在慕尼黑。",
+        meaning: "居住",
+        valence: "jd. wohnt",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "nummerieren",
+        pres3: "nummeriert",
+        pii: "nummeriert",
+        example: "Ich nummeriere die Seiten.",
+        exampleTranslation: "我给页面编号。",
+        meaning: "编号",
+        valence: "jd. nummeriert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "kombinieren",
+        pres3: "kombiniert",
+        pii: "kombiniert",
+        example: "Ich kombiniere verschiedene Farben.",
+        exampleTranslation: "我组合不同的颜色。",
+        meaning: "组合",
+        valence: "jd. kombiniert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "ergänzen",
+        pres3: "ergänzt",
+        pii: "ergänzt",
+        example: "Ich ergänze den Text.",
+        exampleTranslation: "我补充文本。",
+        meaning: "补充",
+        valence: "jd. ergänzt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "ordnen",
+        pres3: "ordnet",
+        pii: "geordnet",
+        example: "Ich ordne meine Bücher.",
+        exampleTranslation: "我整理我的书。",
+        meaning: "整理",
+        valence: "jd. ordnet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "passen",
+        pres3: "passt",
+        pii: "gepasst",
+        example: "Das Kleid passt mir gut.",
+        exampleTranslation: "这件裙子很适合我。",
+        meaning: "适合",
+        valence: "etw. passt <span class=\"dat-bg\">Dat</span>",
+        category: "category4",
+        verbType: "weak"
+    },
+    {
+        infinitive: "sortieren",
+        pres3: "sortiert",
+        pii: "sortiert",
+        example: "Ich sortiere die Briefe.",
+        exampleTranslation: "我分类信件。",
+        meaning: "分类",
+        valence: "jd. sortiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "wissen",
+        pres3: "weiß",
+        pii: "gewusst",
+        example: "Ich weiß die Antwort.",
+        exampleTranslation: "我知道答案。",
+        meaning: "知道",
+        valence: "jd. weiß <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "irregular"
+    },
+    {
+        infinitive: "wiederholen",
+        pres3: "wiederholt",
+        pii: "wiederholt",
+        example: "Ich wiederhole den Satz.",
+        exampleTranslation: "我重复这个句子。",
+        meaning: "重复",
+        valence: "jd. wiederholt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "joggen",
+        pres3: "joggt",
+        pii: "gejoggt",
+        example: "Ich jogge jeden Morgen.",
+        exampleTranslation: "我每天早上慢跑。",
+        meaning: "慢跑",
+        valence: "jd. joggt",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "singen",
+        pres3: "singt",
+        pii: "gesungen",
+        example: "Sie singt ein Lied.",
+        exampleTranslation: "她唱一首歌。",
+        meaning: "唱歌",
+        valence: "jd. singt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "füllen",
+        pres3: "füllt",
+        pii: "gefüllt",
+        example: "Ich fülle das Glas.",
+        exampleTranslation: "我装满杯子。",
+        meaning: "填满",
+        valence: "jd. füllt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "vorschlagen",
+        pres3: "schlägt vor",
+        pii: "vorgeschlagen",
+        example: "Ich schlage einen Plan vor.",
+        exampleTranslation: "我建议一个计划。",
+        meaning: "建议",
+        valence: "jd. schlägt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span> vor",
+        category: "category5",
+        verbType: "strong"
+    },
+    {
+        infinitive: "vortragen",
+        pres3: "trägt vor",
+        pii: "vorgetragen",
+        example: "Er trägt einen Vortrag vor.",
+        exampleTranslation: "他做演讲。",
+        meaning: "演讲",
+        valence: "jd. trägt <span class=\"akk-bg\">Akk</span> vor",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "verbinden",
+        pres3: "verbindet",
+        pii: "verbunden",
+        example: "Ich verbinde die Kabel.",
+        exampleTranslation: "我连接电缆。",
+        meaning: "连接",
+        valence: "jd. verbindet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "fotografieren",
+        pres3: "fotografiert",
+        pii: "fotografiert",
+        example: "Ich fotografiere die Landschaft.",
+        exampleTranslation: "我拍摄风景。",
+        meaning: "拍照",
+        valence: "jd. fotografiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "beobachten",
+        pres3: "beobachtet",
+        pii: "beobachtet",
+        example: "Ich beobachte die Vögel.",
+        exampleTranslation: "我观察鸟类。",
+        meaning: "观察",
+        valence: "jd. beobachtet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "betonen",
+        pres3: "betont",
+        pii: "betont",
+        example: "Ich betone das Wort.",
+        exampleTranslation: "我强调这个词。",
+        meaning: "强调",
+        valence: "jd. betont <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "organisieren",
+        pres3: "organisiert",
+        pii: "organisiert",
+        example: "Ich organisiere eine Party.",
+        exampleTranslation: "我组织一个聚会。",
+        meaning: "组织",
+        valence: "jd. organisiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "wecken",
+        pres3: "weckt",
+        pii: "geweckt",
+        example: "Ich wecke dich um 7 Uhr.",
+        exampleTranslation: "我7点叫醒你。",
+        meaning: "叫醒",
+        valence: "jd. weckt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "treffen",
+        pres3: "trifft",
+        pii: "getroffen",
+        example: "Ich treffe meine Freunde.",
+        exampleTranslation: "我见我的朋友。",
+        meaning: "遇见",
+        valence: "jd. trifft <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "bereiten",
+        pres3: "bereitet",
+        pii: "bereitet",
+        example: "Ich bereite das Essen vor.",
+        exampleTranslation: "我准备食物。",
+        meaning: "准备",
+        valence: "jd. bereitet <span class=\"akk-bg\">Akk</span> vor",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "unterrichten",
+        pres3: "unterrichtet",
+        pii: "unterrichtet",
+        example: "Ich unterrichte Deutsch.",
+        exampleTranslation: "我教德语。",
+        meaning: "教学",
+        valence: "jd. unterrichtet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "planen",
+        pres3: "plant",
+        pii: "geplant",
+        example: "Ich plane eine Reise.",
+        exampleTranslation: "我计划一次旅行。",
+        meaning: "计划",
+        valence: "jd. plant <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "kreuzen",
+        pres3: "kreuzt",
+        pii: "gekreuzt",
+        example: "Ich kreuze die richtige Antwort an.",
+        exampleTranslation: "我在正确答案上打勾。",
+        meaning: "交叉/打勾",
+        valence: "jd. kreuzt <span class=\"akk-bg\">Akk</span> an",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "schneiden",
+        pres3: "schneidet",
+        pii: "geschnitten",
+        example: "Ich schneide das Brot.",
+        exampleTranslation: "我切面包。",
+        meaning: "切",
+        valence: "jd. schneidet <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "schälen",
+        pres3: "schält",
+        pii: "geschält",
+        example: "Ich schäle die Kartoffeln.",
+        exampleTranslation: "我削土豆皮。",
+        meaning: "削皮",
+        valence: "jd. schält <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "salzen",
+        pres3: "salzt",
+        pii: "gesalzen",
+        example: "Ich salze das Essen.",
+        exampleTranslation: "我给食物加盐。",
+        meaning: "加盐",
+        valence: "jd. salzt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "pfeffern",
+        pres3: "pfeffert",
+        pii: "gepfeffert",
+        example: "Ich pfeffere das Fleisch.",
+        exampleTranslation: "我给肉加胡椒。",
+        meaning: "加胡椒",
+        valence: "jd. pfeffert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "braten",
+        pres3: "brät",
+        pii: "gebraten",
+        example: "Ich brate das Fleisch.",
+        exampleTranslation: "我烤肉。",
+        meaning: "烤",
+        valence: "jd. brät <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "demonstrieren",
+        pres3: "demonstriert",
+        pii: "demonstriert",
+        example: "Die Menschen demonstrieren für Frieden.",
+        exampleTranslation: "人们为和平示威。",
+        meaning: "示威",
+        valence: "jd. demonstriert",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "gebären",
+        pres3: "gebärt",
+        pii: "geboren",
+        example: "Sie gebärt ein Kind.",
+        exampleTranslation: "她生了一个孩子。",
+        meaning: "生育",
+        valence: "jd. gebärt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "empfangen",
+        pres3: "empfängt",
+        pii: "empfangen",
+        example: "Ich empfange einen Brief.",
+        exampleTranslation: "我收到一封信。",
+        meaning: "接收",
+        valence: "jd. empfängt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "räumen",
+        pres3: "räumt",
+        pii: "geräumt",
+        example: "Ich räume mein Zimmer auf.",
+        exampleTranslation: "我清理我的房间。",
+        meaning: "清理",
+        valence: "jd. räumt <span class=\"akk-bg\">Akk</span> auf",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "servieren",
+        pres3: "serviert",
+        pii: "serviert",
+        example: "Der Kellner serviert das Essen.",
+        exampleTranslation: "服务员上菜。",
+        meaning: "服务",
+        valence: "jd. serviert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "informieren",
+        pres3: "informiert",
+        pii: "informiert",
+        example: "Ich informiere dich über die Neuigkeiten.",
+        exampleTranslation: "我告诉你新闻。",
+        meaning: "通知",
+        valence: "jd. informiert <span class=\"dat-bg\">Dat</span> über <span class=\"akk-bg\">Akk</span>",
+        category: "category5",
+        verbType: "weak"
+    },
+    {
+        infinitive: "erreichen",
+        pres3: "erreicht",
+        pii: "erreicht",
+        example: "Ich erreiche das Ziel.",
+        exampleTranslation: "我达到目标。",
+        meaning: "到达/达到",
+        valence: "jd. erreicht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "auswechseln",
+        pres3: "wechselt aus",
+        pii: "ausgewechselt",
+        example: "Ich wechsle die Batterie aus.",
+        exampleTranslation: "我更换电池。",
+        meaning: "更换",
+        valence: "jd. wechselt <span class=\"akk-bg\">Akk</span> aus",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "putzen",
+        pres3: "putzt",
+        pii: "geputzt",
+        example: "Ich putze die Zähne.",
+        exampleTranslation: "我刷牙。",
+        meaning: "清洁",
+        valence: "jd. putzt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "betragen",
+        pres3: "beträgt",
+        pii: "betragen",
+        example: "Die Rechnung beträgt 50 Euro.",
+        exampleTranslation: "账单总计50欧元。",
+        meaning: "总计",
+        valence: "etw. beträgt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "verlieren",
+        pres3: "verliert",
+        pii: "verloren",
+        example: "Ich verliere meinen Schlüssel.",
+        exampleTranslation: "我丢了钥匙。",
+        meaning: "失去",
+        valence: "jd. verliert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "entdecken",
+        pres3: "entdeckt",
+        pii: "entdeckt",
+        example: "Ich entdecke einen neuen Ort.",
+        exampleTranslation: "我发现一个新地方。",
+        meaning: "发现",
+        valence: "jd. entdeckt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "stimmen",
+        pres3: "stimmt",
+        pii: "gestimmt",
+        example: "Das stimmt nicht.",
+        exampleTranslation: "这是不对的。",
+        meaning: "正确/投票",
+        valence: "etw. stimmt",
+        category: "category1",
+        verbType: "weak"
+    },
+    {
+        infinitive: "zurückgehen",
+        pres3: "geht zurück",
+        pii: "zurückgegangen",
+        example: "Ich gehe nach Hause zurück.",
+        exampleTranslation: "我回家。",
+        meaning: "回去",
+        valence: "jd. geht zurück",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "buchen",
+        pres3: "bucht",
+        pii: "gebucht",
+        example: "Ich buche ein Hotel.",
+        exampleTranslation: "我预订酒店。",
+        meaning: "预订",
+        valence: "jd. bucht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "tragen",
+        pres3: "trägt",
+        pii: "getragen",
+        example: "Ich trage eine Tasche.",
+        exampleTranslation: "我携带一个包。",
+        meaning: "携带",
+        valence: "jd. trägt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "ziehen",
+        pres3: "zieht",
+        pii: "gezogen",
+        example: "Ich ziehe die Tür zu.",
+        exampleTranslation: "我拉门。",
+        meaning: "拉",
+        valence: "jd. zieht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "strong"
+    },
+    {
+        infinitive: "sterben",
+        pres3: "stirbt",
+        pii: "gestorben",
+        example: "Der alte Mann stirbt.",
+        exampleTranslation: "老人去世了。",
+        meaning: "死亡",
+        valence: "jd. stirbt",
+        category: "category1",
+        verbType: "strong"
+    },
+    {
+        infinitive: "komponieren",
+        pres3: "komponiert",
+        pii: "komponiert",
+        example: "Er komponiert eine Symphonie.",
+        exampleTranslation: "他创作一首交响曲。",
+        meaning: "作曲",
+        valence: "jd. komponiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "benennen",
+        pres3: "benennt",
+        pii: "benannt",
+        example: "Ich benenne das Kind.",
+        exampleTranslation: "我给这个孩子命名。",
+        meaning: "命名",
+        valence: "jd. benennt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "sammeln",
+        pres3: "sammelt",
+        pii: "gesammelt",
+        example: "Ich sammle Briefmarken.",
+        exampleTranslation: "我收集邮票。",
+        meaning: "收集",
+        valence: "jd. sammelt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "probieren",
+        pres3: "probiert",
+        pii: "probiert",
+        example: "Ich probiere das Essen.",
+        exampleTranslation: "我尝试食物。",
+        meaning: "尝试",
+        valence: "jd. probiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "stattfinden",
+        pres3: "findet statt",
+        pii: "stattgefunden",
+        example: "Das Konzert findet heute statt.",
+        exampleTranslation: "音乐会今天举行。",
+        meaning: "举行",
+        valence: "etw. findet statt",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "beschreiben",
+        pres3: "beschreibt",
+        pii: "beschrieben",
+        example: "Ich beschreibe das Bild.",
+        exampleTranslation: "我描述这幅画。",
+        meaning: "描述",
+        valence: "jd. beschreibt <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "notieren",
+        pres3: "notiert",
+        pii: "notiert",
+        example: "Ich notiere die Adresse.",
+        exampleTranslation: "我记录地址。",
+        meaning: "记录",
+        valence: "jd. notiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "nähen",
+        pres3: "näht",
+        pii: "genäht",
+        example: "Sie näht ein Kleid.",
+        exampleTranslation: "她缝制一件裙子。",
+        meaning: "缝纫",
+        valence: "jd. näht <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "produzieren",
+        pres3: "produziert",
+        pii: "produziert",
+        example: "Die Fabrik produziert Autos.",
+        exampleTranslation: "工厂生产汽车。",
+        meaning: "生产",
+        valence: "jd./etw. produziert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "umtauschen",
+        pres3: "tauscht um",
+        pii: "umgetauscht",
+        example: "Ich tausche das Geld um.",
+        exampleTranslation: "我兑换钱。",
+        meaning: "兑换",
+        valence: "jd. tauscht <span class=\"akk-bg\">Akk</span> um",
+        category: "category3",
+        verbType: "weak"
+    },
+    {
+        infinitive: "ausgehen",
+        pres3: "geht aus",
+        pii: "ausgegangen",
+        example: "Ich gehe heute Abend aus.",
+        exampleTranslation: "我今晚外出。",
+        meaning: "外出",
+        valence: "jd. geht aus",
+        category: "category1",
+        verbType: "mixed"
+    },
+    {
+        infinitive: "präsentieren",
+        pres3: "präsentiert",
+        pii: "präsentiert",
+        example: "Ich präsentiere meine Idee.",
+        exampleTranslation: "我展示我的想法。",
+        meaning: "展示",
+        valence: "jd. präsentiert <span class=\"akk-bg\">Akk</span>",
+        category: "category3",
+        verbType: "weak"
+    }
+];
+
+        let filteredVerbs = [];
+        let currentCategory = '全部随机';
+
+        // 加载JSON数据
+        async function loadVerbData() {
+            try {
+                const response = await fetch('A1动词全V1.json');
+                window.verbData = await response.json();
+                console.log('JSON数据加载成功');
+            } catch (error) {
+                console.error('加载JSON数据失败:', error);
+                window.verbData = {};
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadVerbData();
+            updateStats();
+            // 添加短暂的加载动画效果（1秒）
+            setTimeout(() => {
+                filterVerbs('全部随机');
+            }, 1000);
+            
+            // 移动端优化
+            optimizeForMobile();
+        });
+        
+        // 移动端优化函数
+        function optimizeForMobile() {
+            // 检测是否为移动设备
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                            window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // 优化卡片翻转动画
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                
+                // 添加触摸反馈
+                document.addEventListener('touchstart', function(e) {
+                    if (e.target.closest('.card')) {
+                        e.target.closest('.card').style.transform = 'scale(0.98)';
+                    }
+                }, { passive: true });
+                
+                document.addEventListener('touchend', function(e) {
+                    if (e.target.closest('.card')) {
+                        e.target.closest('.card').style.transform = '';
+                    }
+                }, { passive: true });
+            }
+        }
+
+        // 更新统计信息
+        function updateStats() {
+            document.getElementById('total-count').textContent = verbs.length;
+            document.getElementById('category-count').textContent = filteredVerbs.length;
+            
+            // 更新footer中的总数
+            const footerTotal = document.getElementById('footer-total-count');
+            if (footerTotal) {
+                footerTotal.innerHTML = `总计: ${verbs.length}个 | 标注：三格(<span class="dat-bg">Dat</span>) 四格(<span class="akk-bg">Akk</span>)`;
+            }
+            
+            // 显示当前配价分类信息
+            const valenceInfo = getValenceInfo(currentCategory);
+            const statsElement = document.querySelector('.stats');
+            if (statsElement) {
+                statsElement.innerHTML = `
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-count">${verbs.length}</span>
+                            <div class="stat-label">总动词数</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="category-count">${filteredVerbs.length}</span>
+                            <div class="stat-label">当前类别</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="valence-info" style="color: ${valenceInfo.color}; font-weight: 600;">
+                                ${valenceInfo.name}
+                            </div>
+                            <div class="stat-label">${valenceInfo.description}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // 判断规则动词
+        function isRegularPres3(infinitive, pres3) {
+            const stem = infinitive.slice(0, -2); // 去掉 -en
+            return pres3 === stem + 't';
+        }
+        
+        function isRegularPII(infinitive, pii) {
+            const stem = infinitive.slice(0, -2); // 去掉 -en
+            return pii === 'ge' + stem + 't';
+        }
+
+        // 从JSON数据中获取verbType
+        function getVerbType(infinitive) {
+            if (window.verbData && window.verbData[infinitive]) {
+                return window.verbData[infinitive].classification.verbType;
+            }
+            return 'weak'; // 默认值
+        }
+        
+        // 为动词对象添加verbType字段
+        function addVerbTypeToVerb(verb) {
+            // 优先使用内置数据中的 verbType；若不存在再从 JSON 回填
+            const jsonVerbType = getVerbType(verb.infinitive);
+            return {
+                ...verb,
+                verbType: verb.verbType || jsonVerbType
+            };
+        }
+
+        // 基于verbType判断是否需要突出显示pres3
+        function shouldHighlightPres3(verbType, infinitive) {
+            switch(verbType) {
+                case 'weak':
+                    return false; // pres3不突出
+                case 'mixed':
+                    return false; // pres3不突出
+                case 'strong':
+                    return true;  // pres3突出
+                case 'irregular':
+                    return true;  // pres3突出
+                case 'modal':
+                    // 所有modal动词pres3突出（包含möchten）
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        
+        // 基于verbType判断是否需要突出显示pii
+        function shouldHighlightPII(verbType, infinitive) {
+            switch(verbType) {
+                case 'weak':
+                    return false; // pii不突出
+                case 'mixed':
+                    return true;  // pii突出
+                case 'strong':
+                    return true;  // pii突出
+                case 'irregular':
+                    return true;  // pii突出
+                case 'modal':
+                    // 所有modal动词pii突出（包含möchten）
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        
+        // 判断是否为反身动词
+        function isReflexiveVerb(verb) {
+            return verb.category === 'category7';
+        }
+        
+        // 测试突出显示功能
+        function testHighlighting() {
+            console.log('=== 测试突出显示功能 ===');
+            console.log('规则说明:');
+            console.log('- weak: pres3不突出, pii不突出');
+            console.log('- mixed: pres3不突出, pii突出');
+            console.log('- strong: pres3突出, pii突出');
+            console.log('- irregular: pres3突出, pii突出');
+            console.log('- modal: pres3突出, pii突出');
+            console.log('---');
+            
+            // 测试一些具体的动词及其verbType
+            const testVerbs = [
+                { infinitive: 'sein', verbType: 'irregular', pres3: 'ist', pii: 'gewesen' },
+                { infinitive: 'haben', verbType: 'irregular', pres3: 'hat', pii: 'gehabt' },
+                { infinitive: 'lernen', verbType: 'weak', pres3: 'lernt', pii: 'gelernt' },
+                { infinitive: 'machen', verbType: 'weak', pres3: 'macht', pii: 'gemacht' },
+                { infinitive: 'gehen', verbType: 'strong', pres3: 'geht', pii: 'gegangen' },
+                { infinitive: 'kommen', verbType: 'strong', pres3: 'kommt', pii: 'gekommen' },
+                { infinitive: 'kennen', verbType: 'mixed', pres3: 'kennt', pii: 'gekannt' },
+                { infinitive: 'können', verbType: 'modal', pres3: 'kann', pii: 'gekonnt' },
+                { infinitive: 'möchten', verbType: 'modal', pres3: 'möchte', pii: 'gewollt' }
+            ];
+            
+            testVerbs.forEach(verb => {
+                const pres3Highlight = shouldHighlightPres3(verb.verbType, verb.infinitive);
+                const piiHighlight = shouldHighlightPII(verb.verbType, verb.infinitive);
+                
+                console.log(`${verb.infinitive} (${verb.verbType}):`);
+                console.log(`  pres3: ${verb.pres3} - ${pres3Highlight ? '突出(黑色)' : '不突出(灰色50%)'}`);
+                console.log(`  pii: ${verb.pii} - ${piiHighlight ? '突出(黑色)' : '不突出(灰色50%)'}`);
+                console.log('---');
+            });
+            
+            // 显示测试结果
+            alert('突出显示测试完成！请查看控制台了解详细信息。\n\n黑色 = 需要突出显示\n灰色50% = 不需要突出显示');
+        }
+
+        // 格式化动词形式显示
+        function formatPres3(verb) {
+            return verb.pres3 || verb.infinitive;
+        }
+
+        function formatPII(verb) {
+            // 对于系动词+形容词的组合，不显示PII形式
+            if (verb.category === 'category2' && verb.infinitive.includes(' sein')) {
+                return '-';
+            }
+            // möchten 的 PII 为空，显示为 '-'
+            if (verb.infinitive === 'möchten') {
+                return '-';
+            }
+            return verb.pii || verb.infinitive;
+        }
+
+        // 过滤动词
+        function filterVerbs(category, targetElement = null) {
+            currentCategory = category;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 如果提供了目标元素，则激活它；否则激活对应的按钮
+            if (targetElement) {
+                targetElement.classList.add('active');
+            } else {
+                // 根据category找到对应的按钮并激活
+                const targetBtn = document.querySelector(`[onclick*="'${category}'"]`);
+                if (targetBtn) {
+                    targetBtn.classList.add('active');
+                }
+            }
+            
+            // 过滤动词并添加verbType字段
+            if (category === '全部' || category === '全部随机') {
+                filteredVerbs = verbs.map(verb => addVerbTypeToVerb(verb));
+                if (category === '全部随机') {
+                    // Fisher–Yates 随机洗牌
+                    for (let i = filteredVerbs.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [filteredVerbs[i], filteredVerbs[j]] = [filteredVerbs[j], filteredVerbs[i]];
+                    }
+                }
+            } else {
+                filteredVerbs = verbs.filter(verb => verb.category === category).map(verb => addVerbTypeToVerb(verb));
+            }
+            
+            updateStats();
+            renderCards();
+        }
+
+        // 获取配价分类信息
+        function getValenceInfo(category) {
+            const valenceInfo = {
+                'category1': { name: '纯动词', description: '主语 + 动词', color: '#3498db' },
+                'category2': { name: '系动词', description: '主语 + 系动词 + 表语', color: '#e74c3c' },
+                'category3': { name: '直接宾语', description: '主语 + 动作 + 直接宾语', color: '#27ae60' },
+                'category4': { name: '受益者', description: '主语 + 动作 + 受益者', color: '#f39c12' },
+                'category5': { name: '受益者+宾语', description: '主语 + 动作 + 受益者 + 直接宾语', color: '#9b59b6' },
+                'category6': { name: '情态动词', description: '情态动词 + 动词原形', color: '#1abc9c' },
+                'category7': { name: '反身动词', description: '主语 + 动作 + sich', color: '#34495e' }
+            };
+            if (category === '全部') {
+                return { name: '全部', description: '所有动词(按原顺序)', color: '#2c3e50' };
+            }
+            if (category === '全部随机') {
+                return { name: '全部随机', description: '所有动词(随机顺序)', color: '#2c3e50' };
+            }
+            return valenceInfo[category] || { name: '全部', description: '所有动词', color: '#2c3e50' };
+        }
+
+        // 渲染卡片
+        function renderCards() {
+            const container = document.getElementById('cardsContainer');
+            
+            // 只有在当前类别不是"全部"且没有动词时才显示"没有动词"提示
+            if (filteredVerbs.length === 0 && currentCategory !== '全部') {
+                container.innerHTML = `
+                    <div class="loader">
+                        <i class="fas fa-info-circle"></i>
+                        <div>该类别下没有动词</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 如果当前类别是"全部"但没有动词，说明数据还没加载，保持加载动画
+            if (filteredVerbs.length === 0) {
+                return; // 保持原有的加载动画
+            }
+            
+            // 使用文档片段提高性能
+            const fragment = document.createDocumentFragment();
+            
+            filteredVerbs.forEach(verb => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <div class="verb-header">
+                                <div class="verb-name">${verb.infinitive}</div>
+                                <button class="speak-btn" onclick="speakWordAndExample('${verb.infinitive}', '${verb.example}', event)">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                            <div class="verb-forms">
+                                <div class="form-item">
+                                    <span class="form-label">单三:</span>
+                                    <span class="form-value ${shouldHighlightPres3(verb.verbType || getVerbType(verb.infinitive), verb.infinitive) ? 'highlight' : ''}">${formatPres3(verb)}</span>
+                                </div>
+                                <div class="form-item">
+                                    <span class="form-label">PII:</span>
+                                    <span class="form-value ${shouldHighlightPII(verb.verbType || getVerbType(verb.infinitive), verb.infinitive) ? 'highlight' : ''}">${formatPII(verb)}</span>
+                                </div>
+                            </div>
+                            <div class="verb-example">
+                                ${verb.example}
+                            </div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="card-back-content">
+                                <div class="card-back-top">
+                                    <div class="valence">${verb.valence}</div>
+                                    <div class="meaning">${verb.meaning}</div>
+                                </div>
+                                <div class="card-back-bottom">
+                                    <div class="card-hint"><i class="fas fa-sync-alt"></i> 点击翻转卡片</div>
+                                    <div class="example-translation">${verb.exampleTranslation}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 添加点击翻转功能
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.speak-btn')) {
+                        card.classList.toggle('flipped');
+                        
+                        // 卡片翻转时自动发音
+                        if (card.classList.contains('flipped')) {
+                            // 延迟一点时间让翻转动画完成
+                            setTimeout(() => {
+                                speakWordAndMeaning(verb.infinitive, verb.meaning, e);
+                            }, 300);
+                        }
+                    }
+                });
+                
+                fragment.appendChild(card);
+            });
+            
+            // 清空容器并添加所有卡片
+            container.innerHTML = '';
+            container.appendChild(fragment);
+            
+            // 移动端优化：重新应用触摸事件
+            if (window.innerWidth <= 768) {
+                optimizeForMobile();
+            }
+        }
+
+        // 全局变量控制语音播放
+        let currentGermanUtterance = null;
+        let currentChineseUtterance = null;
+        let isGermanSpeaking = false;
+        let isChineseSpeaking = false;
+
+        // 语音播放功能
+        function speakWordAndExample(word, example, event) {
+            event.stopPropagation();
+            
+            if ('speechSynthesis' in window) {
+                // 停止当前播放
+                stopCurrentSpeech();
+                
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.8;
+                
+                utterance.onstart = function() {
+                    isGermanSpeaking = true;
+                };
+                
+                utterance.onend = function() {
+                    isGermanSpeaking = false;
+                };
+                
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // 卡片翻转时的语音播放功能
+        function speakWordAndMeaning(word, meaning, event) {
+            if ('speechSynthesis' in window) {
+                // 停止当前播放
+                stopCurrentSpeech();
+                
+                // 先朗读德语词
+                currentGermanUtterance = new SpeechSynthesisUtterance(word);
+                currentGermanUtterance.lang = 'de-DE';
+                currentGermanUtterance.rate = 0.8;
+                
+                // 再朗读中文释义
+                currentChineseUtterance = new SpeechSynthesisUtterance(meaning);
+                currentChineseUtterance.lang = 'zh-CN';
+                currentChineseUtterance.rate = 1.0;
+                
+                // 设置德语朗读状态
+                currentGermanUtterance.onstart = function() {
+                    isGermanSpeaking = true;
+                };
+                
+                currentGermanUtterance.onend = function() {
+                    isGermanSpeaking = false;
+                    // 德语播放完成后播放中文
+                    if (currentChineseUtterance && !isGermanSpeaking) {
+                        setTimeout(() => {
+                            if (currentChineseUtterance) {
+                                currentChineseUtterance.onstart = function() {
+                                    isChineseSpeaking = true;
+                                };
+                                
+                                currentChineseUtterance.onend = function() {
+                                    isChineseSpeaking = false;
+                                };
+                                
+                                speechSynthesis.speak(currentChineseUtterance);
+                            }
+                        }, 300);
+                    }
+                };
+                
+                // 开始播放德语
+                speechSynthesis.speak(currentGermanUtterance);
+            }
+        }
+
+        // 停止当前语音播放
+        function stopCurrentSpeech() {
+            if ('speechSynthesis' in window) {
+                // 停止所有语音合成
+                speechSynthesis.cancel();
+                
+                // 重置状态
+                isGermanSpeaking = false;
+                isChineseSpeaking = false;
+                currentGermanUtterance = null;
+                currentChineseUtterance = null;
+            }
+        }
+    </script>
+</body>
+</html>

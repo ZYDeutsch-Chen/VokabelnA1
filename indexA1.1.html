@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>至元德语 走遍德国A1.1动词学习</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#f5f7fa 0%,#e4e7eb 100%);padding:15px;min-height:100vh}
+.header{text-align:center;margin-bottom:20px;padding:15px 0}
+.header h1{color:#2c3e50;font-size:1.8rem;margin-bottom:5px}
+.header p{color:#7f8c8d;font-size:1rem}
+.quick-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:15px 0 20px;padding:0 5px}
+@media (max-width:768px){.quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0 15px;padding:0 2px}}
+@media (max-width:480px){.quick-nav{grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0 12px}}
+.nav-btn{padding:8px 12px;background:linear-gradient(135deg,#3498db,#2c3e50);color:white;border:none;border-radius:20px;font-weight:500;transition:all 0.3s ease;box-shadow:0 2px 5px rgba(0,0,0,0.1);font-size:0.85rem;flex:1;min-width:100px;max-width:140px;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer}
+.nav-btn i{font-size:0.9em}
+.nav-btn.active{background:linear-gradient(135deg,#e74c3c,#c0392b);transform:scale(1.05)}
+.cards-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(100%,1fr));gap:15px;margin-top:10px;padding-bottom:30px}
+.card{height:261px;perspective:1000px;cursor:pointer}
+.card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);box-shadow:0 8px 16px rgba(0,0,0,0.1);border-radius:16px}
+.card.flipped .card-inner{transform:rotateY(180deg)}
+.card-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;padding:15px;display:flex;flex-direction:column}
+.card-front{background:linear-gradient(145deg,#ffffff,#f8f9fa);border:1px solid #e0e0e0;justify-content:space-between}
+.card-back{background:linear-gradient(145deg,#2c3e50,#34495e);color:white;transform:rotateY(180deg);position:relative;height:100%}
+.verb-header{display:flex;justify-content:space-between;align-items:center}
+.verb-name{font-size:2rem;font-weight:700;color:#2c3e50;text-shadow:1px 1px 3px rgba(0,0,0,0.1);line-height:1.15}
+.speak-btn{background:#3498db;color:white;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 8px rgba(0,0,0,0.2);transition:all 0.3s ease}
+.speak-btn:hover{background:#2980b9;transform:scale(1.1)}
+.verb-forms{display:flex;flex-direction:column;gap:4px;margin-top:0px}
+.form-item{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed rgba(224,224,224,0.7);line-height:1.2}
+.form-label{font-weight:600;color:#7f8c8d;min-width:70px;font-size:1rem;line-height:1.2}
+.form-value{font-weight:normal;color:#000000;text-align:right;flex:1;font-size:1.25rem;transition:all 0.3s ease;line-height:1.2}
+.form-value.highlight{color:#000000 !important;font-weight:normal}
+.form-value:not(.highlight){color:rgba(44,62,80,0.5) !important}
+.verb-example{background:rgba(236,240,241,0.6);padding:11px;border-radius:8px;margin-top:0px;font-style:italic;font-size:1.16rem;line-height:1.35;width:98%;margin:12px auto 0}
+.card-back-content{position:relative;height:100%;width:100%}
+.card-back-top{width:98%;margin:15px auto 0}
+.card-back-bottom{position:absolute;bottom:10px;width:100%}
+.akk-bg{background-color:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-size:0.85em;font-weight:600}
+.dat-bg{background-color:#2980b9;color:white;padding:2px 6px;border-radius:4px;font-size:0.85em;font-weight:600}
+.valence{background:rgba(255,255,255,0.1);padding:12px;border-radius:8px;margin-bottom:15px;font-size:1.25rem;line-height:1.4}
+.meaning{font-size:1.6rem;font-weight:600;color:#ecf0f1;text-shadow:1px 1px 2px rgba(0,0,0,0.3);margin-bottom:15px;text-align:center}
+.card-hint{text-align:center;color:rgba(255,255,255,0.7);font-size:0.9rem;margin-bottom:8px}
+.example-translation{background:rgba(255,255,255,0.1);padding:12px;border-radius:6px;font-style:italic;width:98%;margin:0 auto 0;font-size:1.25rem;line-height:1.4}
+.loader{text-align:center;padding:40px 20px;color:#7f8c8d;font-size:1.1rem}
+.loader i{font-size:2rem;margin-bottom:10px;color:#3498db}
+.stats{background:rgba(255,255,255,0.9);padding:15px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.stats-content{display:flex;justify-content:space-around;text-align:center}
+.stat-item{flex:1}
+.stat-item:nth-child(1){flex:0.85}
+.stat-item:nth-child(2){flex:0.85}
+.stat-item:nth-child(3){flex:1.3}
+.stat-number{font-size:1.5rem;font-weight:700;color:#2c3e50;display:block}
+.stat-label{font-size:0.9rem;color:#7f8c8d;margin-top:2px}
+.stat-item:nth-child(1) .stat-number,.stat-item:nth-child(2) .stat-number{font-size:1.3rem}
+.stat-item:nth-child(3) .stat-number{font-size:1.7rem}
+.stat-item:nth-child(1) .stat-label,.stat-item:nth-child(2) .stat-label{font-size:0.8rem}
+.stat-item:nth-child(3) .stat-label{font-size:1.0rem}
+@media (max-width:768px){body{padding:10px}.header h1{font-size:1.5rem}.header p{font-size:0.9rem}.quick-nav{gap:4px;margin:10px 0 15px}.nav-btn{font-size:0.75rem;padding:8px 6px;min-width:70px;max-width:100px;border-radius:15px}.nav-btn i{font-size:0.8em}.cards-container{grid-template-columns:repeat(auto-fill,minmax(100%,1fr))}.card{height:243px;margin-bottom:10px}.card-face{padding:12px}.verb-name{font-size:1.5rem;line-height:1.15}.form-label{font-size:0.9rem;min-width:58px;line-height:1.2}.form-value{font-size:1.05rem;line-height:1.2}.verb-example{padding:9px;font-size:1.05rem;margin-top:0px;line-height:1.35}.meaning{font-size:1.2rem}.valence{font-size:1rem;padding:10px}.example-translation{padding:10px;font-size:1rem;line-height:1.4}.stats{padding:12px;margin-bottom:15px}.stat-number{font-size:1.3rem}.stat-label{font-size:0.8rem}}
+@media (max-width:480px){body{padding:8px}.header h1{font-size:1.3rem}.header p{font-size:0.8rem}.quick-nav{gap:3px;margin:8px 0 12px}.nav-btn{font-size:0.7rem;padding:6px 4px;min-width:60px;max-width:85px;border-radius:12px}.nav-btn i{font-size:0.75em}.card{height:225px;margin-bottom:8px}.card-face{padding:10px}.verb-name{font-size:1.3rem;line-height:1.15}.speak-btn{width:32px;height:32px}.form-label{font-size:0.82rem;min-width:50px;line-height:1.2}.form-value{font-size:0.95rem;line-height:1.2}.verb-example{padding:7px 9px;font-size:0.94rem;margin-top:0px;line-height:1.35}.meaning{font-size:1.1rem}.valence{font-size:0.9rem;padding:8px}.example-translation{padding:8px;font-size:0.9rem;line-height:1.4}.stats{padding:10px;margin-bottom:12px}.stat-number{font-size:1.2rem}.stat-label{font-size:0.75rem}}
+@media (max-height:500px) and (orientation:landscape){.card{height:180px}.verb-name{font-size:1.1rem}.form-value{font-size:0.9rem}.verb-example{padding:7px;font-size:0.88rem;margin-top:6px}.meaning{font-size:1rem}.valence{font-size:0.9rem;padding:6px}.example-translation{font-size:0.9rem;padding:6px;line-height:1.4}}
+@media (hover:none) and (pointer:coarse){.card{transition:transform 0.3s ease}.card:hover{transform:scale(1.02)}.card:active{transform:scale(0.98)}.nav-btn{min-height:44px;transition:all 0.2s ease}.nav-btn:active{transform:scale(0.95)}.speak-btn{min-width:44px;min-height:44px;transition:all 0.2s ease}.speak-btn:active{transform:scale(0.9)}}
+@media (max-width:768px){body{-webkit-overflow-scrolling:touch;overflow-x:hidden}.cards-container{-webkit-overflow-scrolling:touch}.card{touch-action:manipulation}.nav-btn{touch-action:manipulation}}
+.footer{text-align:center;margin-top:40px;padding:20px;color:#7f8c8d;font-size:0.9em;border-top:1px solid #ddd;background:#f8f9fa;border-radius:12px}
+.footer p{margin:5px 0}
+</style>
+</head>
+<body>
+<div class="header">
+<h1><i class="fas fa-graduation-cap"></i> 至元德语 走遍德国A1.1动词学习</h1>
+<p>请选择单元</p>
+</div>
+<div class="stats">
+<div class="stats-content">
+<div class="stat-item"><span class="stat-number" id="total-count">0</span><div class="stat-label">总动词数</div></div>
+<div class="stat-item"><span class="stat-number" id="category-count">0</span><div class="stat-label">当前单元</div></div>
+</div>
+</div>
+<div class="quick-nav">
+<button class="nav-btn" onclick="filterVerbs('lektion1',this)"><i class="fas fa-book"></i> Lektion 1</button>
+<button class="nav-btn" onclick="filterVerbs('lektion2',this)"><i class="fas fa-book-open"></i> Lektion 2</button>
+<button class="nav-btn" onclick="filterVerbs('lektion3',this)"><i class="fas fa-bookmark"></i> Lektion 3</button>
+<button class="nav-btn" onclick="filterVerbs('lektion4',this)"><i class="fas fa-graduation-cap"></i> Lektion 4</button>
+<button class="nav-btn" onclick="filterVerbs('全部随机',this)"><i class="fas fa-list"></i> 全部随机</button>
+</div>
+<div class="cards-container" id="cardsContainer">
+<div class="loader"><i class="fas fa-spinner fa-spin"></i><div>加载中...</div></div>
+</div>
+<div class="footer">
+<p id="footer-total-count">总计: 0个 | 标注：三格(<span class="dat-bg">Dat</span>) 四格(<span class="akk-bg">Akk</span>)</p>
+<p>走遍德国A1.1动词 | 至元德语内部资料</p>
+</div>
+<script>
+const verbs=[
+{infinitive:"hören",pres3:"hört",pii:"gehört",example:"Ich höre Musik.",exampleTranslation:"我听音乐。",meaning:"听，听见",valence:"jd. hört <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"sprechen",pres3:"spricht",pii:"gesprochen",example:"Sprechen Sie Deutsch?",exampleTranslation:"您说德语吗？",meaning:"说话",valence:"jd. spricht <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"strong"},
+{infinitive:"lesen",pres3:"liest",pii:"gelesen",example:"Ich lese ein Buch.",exampleTranslation:"我读书。",meaning:"读，阅读",valence:"jd. liest <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"strong"},
+{infinitive:"schreiben",pres3:"schreibt",pii:"geschrieben",example:"Ich schreibe einen Brief.",exampleTranslation:"我写信。",meaning:"写",valence:"jd. schreibt <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"mixed"},
+{infinitive:"markieren",pres3:"markiert",pii:"markiert",example:"Ich markiere die wichtigen Stellen.",exampleTranslation:"我标记重要的地方。",meaning:"标记",valence:"jd. markiert <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"heißen",pres3:"heißt",pii:"geheißen",example:"Wie heißen Sie?",exampleTranslation:"您叫什么名字？",meaning:"叫，名为",valence:"jd. heißt",category:"lektion1",verbType:"mixed"},
+{infinitive:"haben",pres3:"hat",pii:"gehabt",example:"Ich habe ein Buch.",exampleTranslation:"我有一本书。",meaning:"有",valence:"jd. hat <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"irregular"},
+{infinitive:"sein",pres3:"ist",pii:"gewesen",example:"Ich bin Student.",exampleTranslation:"我是学生。",meaning:"是",valence:"jd. ist + (Adj/N)",category:"lektion1",verbType:"irregular"},
+{infinitive:"kommen",pres3:"kommt",pii:"gekommen",example:"Er kommt aus Deutschland.",exampleTranslation:"他来自德国。",meaning:"来",valence:"jd. kommt",category:"lektion1",verbType:"mixed"},
+{infinitive:"wohnen",pres3:"wohnt",pii:"gewohnt",example:"Ich wohne in München.",exampleTranslation:"我住在慕尼黑。",meaning:"居住",valence:"jd. wohnt",category:"lektion1",verbType:"weak"},
+{infinitive:"verstehen",pres3:"versteht",pii:"verstanden",example:"Ich verstehe dich.",exampleTranslation:"我理解你。",meaning:"理解",valence:"jd. versteht <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"mixed"},
+{infinitive:"nummerieren",pres3:"nummeriert",pii:"nummeriert",example:"Ich nummeriere die Seiten.",exampleTranslation:"我给页面编号。",meaning:"编号",valence:"jd. nummeriert <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"liegen",pres3:"liegt",pii:"gelegen",example:"Liegt das Buch auf dem Tisch?",exampleTranslation:"书在桌子上吗？",meaning:"平放/位于",valence:"etw. liegt",category:"lektion1",verbType:"mixed"},
+{infinitive:"suchen",pres3:"sucht",pii:"gesucht",example:"Ich suche meinen Schlüssel.",exampleTranslation:"我找我的钥匙。",meaning:"寻找",valence:"jd. sucht <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"kennen",pres3:"kennt",pii:"gekannt",example:"Ich kenne ihn.",exampleTranslation:"我认识他。",meaning:"认识，了解",valence:"jd. kennt <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"mixed"},
+{infinitive:"lernen",pres3:"lernt",pii:"gelernt",example:"Ich lerne Deutsch.",exampleTranslation:"我学习德语。",meaning:"学习",valence:"jd. lernt <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"machen",pres3:"macht",pii:"gemacht",example:"Ich mache Hausaufgaben.",exampleTranslation:"我做作业。",meaning:"做，制作",valence:"jd. macht <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"finden",pres3:"findet",pii:"gefunden",example:"Ich finde das Buch.",exampleTranslation:"我找到了这本书。",meaning:"找到",valence:"jd. findet <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"mixed"},
+{infinitive:"fahren",pres3:"fährt",pii:"gefahren",example:"Ich fahre mit dem Bus.",exampleTranslation:"我坐公交车。",meaning:"驾驶，乘坐",valence:"jd. fährt",category:"lektion1",verbType:"strong"},
+{infinitive:"kombinieren",pres3:"kombiniert",pii:"kombiniert",example:"Ich kombiniere verschiedene Farben.",exampleTranslation:"我组合不同的颜色。",meaning:"组合",valence:"jd. kombiniert <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"schlafen",pres3:"schläft",pii:"geschlafen",example:"Ich schlafe gut.",exampleTranslation:"我睡得很好。",meaning:"睡觉",valence:"jd. schläft",category:"lektion1",verbType:"strong"},
+{infinitive:"spielen",pres3:"spielt",pii:"gespielt",example:"Ich spiele Fußball.",exampleTranslation:"我踢足球。",meaning:"玩，踢",valence:"jd. spielt <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"arbeiten",pres3:"arbeitet",pii:"gearbeitet",example:"Ich arbeite heute.",exampleTranslation:"我今天工作。",meaning:"工作",valence:"jd. arbeitet",category:"lektion1",verbType:"weak"},
+{infinitive:"reisen",pres3:"reist",pii:"gereist",example:"Wir reisen nach Deutschland.",exampleTranslation:"我们去德国旅行。",meaning:"旅行",valence:"jd. reist",category:"lektion1",verbType:"weak"},
+{infinitive:"fragen",pres3:"fragt",pii:"gefragt",example:"Ich frage dich.",exampleTranslation:"我问你。",meaning:"问(某人)",valence:"jd. fragt <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"antworten",pres3:"antwortet",pii:"geantwortet",example:"Ich antworte dem Lehrer.",exampleTranslation:"我回答老师。",meaning:"回答",valence:"jd. antwortet <span class=\"dat-bg\">Dat</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"ergänzen",pres3:"ergänzt",pii:"ergänzt",example:"Ich ergänze den Text.",exampleTranslation:"我补充文本。",meaning:"补充",valence:"jd. ergänzt <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"ordnen",pres3:"ordnet",pii:"geordnet",example:"Ich ordne meine Bücher.",exampleTranslation:"我整理我的书。",meaning:"整理",valence:"jd. ordnet <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"buchstabieren",pres3:"buchstabiert",pii:"buchstabiert",example:"Buchstabieren Sie Ihren Namen!",exampleTranslation:"请拼写您的名字！",meaning:"拼写",valence:"jd. buchstabiert <span class=\"akk-bg\">Akk</span>",category:"lektion1",verbType:"weak"},
+{infinitive:"passen",pres3:"passt",pii:"gepasst",example:"Das Kleid passt mir gut.",exampleTranslation:"这件裙子很适合我。",meaning:"适合",valence:"etw. passt <span class=\"dat-bg\">Dat</span>",category:"lektion2",verbType:"weak"},
+{infinitive:"sortieren",pres3:"sortiert",pii:"sortiert",example:"Ich sortiere die Briefe.",exampleTranslation:"我分类信件。",meaning:"分类",valence:"jd. sortiert <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"weak"},
+{infinitive:"warten",pres3:"wartet",pii:"gewartet",example:"Ich warte auf den Bus.",exampleTranslation:"我等公交车。",meaning:"等待",valence:"jd. wartet auf <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"weak"},
+{infinitive:"trinken",pres3:"trinkt",pii:"getrunken",example:"Ich trinke Wasser.",exampleTranslation:"我喝水。",meaning:"喝",valence:"jd. trinkt <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"mixed"},
+{infinitive:"essen",pres3:"isst",pii:"gegessen",example:"Ich esse Brot.",exampleTranslation:"我吃面包。",meaning:"吃",valence:"jd. isst <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"strong"},
+{infinitive:"sagen",pres3:"sagt",pii:"gesagt",example:"Ich sage dir die Wahrheit.",exampleTranslation:"我告诉你真相。",meaning:"说，告诉",valence:"jd. sagt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"weak"},
+{infinitive:"gehen",pres3:"geht",pii:"gegangen",example:"Wohin gehen Sie?",exampleTranslation:"您去哪里？",meaning:"去",valence:"jd. geht",category:"lektion2",verbType:"mixed"},
+{infinitive:"wissen",pres3:"weiß",pii:"gewusst",example:"Ich weiß die Antwort.",exampleTranslation:"我知道答案。",meaning:"知道",valence:"jd. weiß <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"irregular"},
+{infinitive:"glauben",pres3:"glaubt",pii:"geglaubt",example:"Ich glaube dir.",exampleTranslation:"我相信你。",meaning:"信任",valence:"jd. glaubt <span class=\"dat-bg\">Dat</span>",category:"lektion2",verbType:"weak"},
+{infinitive:"wiederholen",pres3:"wiederholt",pii:"wiederholt",example:"Ich wiederhole den Satz.",exampleTranslation:"我重复这个句子。",meaning:"重复",valence:"jd. wiederholt <span class=\"akk-bg\">Akk</span>",category:"lektion2",verbType:"weak"},
+{infinitive:"sehen",pres3:"sieht",pii:"gesehen",example:"Ich sehe einen Film.",exampleTranslation:"我看电影。",meaning:"看，看见",valence:"jd. sieht <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"strong"},
+{infinitive:"nehmen",pres3:"nimmt",pii:"genommen",example:"Ich nehme den Bus.",exampleTranslation:"我乘坐公交车。",meaning:"拿，取，乘坐",valence:"jd. nimmt <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"strong"},
+{infinitive:"möchten",pres3:"möchte",pii:"gemöcht",example:"Ich möchte essen.",exampleTranslation:"我想吃饭。",meaning:"想要",valence:"jd. möchte + Inf",category:"lektion3",verbType:"modal"},
+{infinitive:"joggen",pres3:"joggt",pii:"gejoggt",example:"Ich jogge jeden Morgen.",exampleTranslation:"我每天早上慢跑。",meaning:"慢跑",valence:"jd. joggt",category:"lektion3",verbType:"weak"},
+{infinitive:"singen",pres3:"singt",pii:"gesungen",example:"Sie singt ein Lied.",exampleTranslation:"她唱一首歌。",meaning:"唱歌",valence:"jd. singt <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"strong"},
+{infinitive:"füllen",pres3:"füllt",pii:"gefüllt",example:"Ich fülle das Glas.",exampleTranslation:"我装满杯子。",meaning:"填满",valence:"jd. füllt <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"weak"},
+{infinitive:"mögen",pres3:"mag",pii:"gemocht",example:"Ich mag Kaffee.",exampleTranslation:"我喜欢咖啡。",meaning:"喜欢",valence:"jd. mag <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"modal"},
+{infinitive:"bringen",pres3:"bringt",pii:"gebracht",example:"Bringen Sie mir das Buch!",exampleTranslation:"请给我带书！",meaning:"带来",valence:"jd. bringt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"mixed"},
+{infinitive:"erklären",pres3:"erklärt",pii:"erklärt",example:"Ich erkläre dir die Regel.",exampleTranslation:"我向你解释规则。",meaning:"解释",valence:"jd. erklärt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",category:"lektion3",verbType:"weak"},
+{infinitive:"vorschlagen",pres3:"schlägt vor",pii:"vorgeschlagen",example:"Ich schlage einen Plan vor.",exampleTranslation:"我建议一个计划。",meaning:"建议",valence:"jd. schlägt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span> vor",category:"lektion3",verbType:"strong"},
+{infinitive:"vortragen",pres3:"trägt vor",pii:"vorgetragen",example:"Er trägt einen Vortrag vor.",exampleTranslation:"他做演讲。",meaning:"演讲",valence:"jd. trägt <span class=\"akk-bg\">Akk</span> vor",category:"lektion3",verbType:"strong"},
+{infinitive:"verbinden",pres3:"verbindet",pii:"verbunden",example:"Ich verbinde die Kabel.",exampleTranslation:"我连接电缆。",meaning:"连接",valence:"jd. verbindet <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"mixed"},
+{infinitive:"geben",pres3:"gibt",pii:"gegeben",example:"Ich gebe dir das Buch.",exampleTranslation:"我给你这本书。",meaning:"给",valence:"jd. gibt <span class=\"dat-bg\">Dat</span> <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"strong"},
+{infinitive:"verkaufen",pres3:"verkauft",pii:"verkauft",example:"Wir verkaufen unser Auto.",exampleTranslation:"我们卖我们的汽车。",meaning:"卖出",valence:"jd. verkauft <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"fotografieren",pres3:"fotografiert",pii:"fotografiert",example:"Ich fotografiere die Landschaft.",exampleTranslation:"我拍摄风景。",meaning:"拍照",valence:"jd. fotografiert <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"beobachten",pres3:"beobachtet",pii:"beobachtet",example:"Ich beobachte die Vögel.",exampleTranslation:"我观察鸟类。",meaning:"观察",valence:"jd. beobachtet <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"kaufen",pres3:"kauft",pii:"gekauft",example:"Ich kaufe Brot.",exampleTranslation:"我买面包。",meaning:"买",valence:"jd. kauft <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"betonen",pres3:"betont",pii:"betont",example:"Ich betone das Wort.",exampleTranslation:"我强调这个词。",meaning:"强调",valence:"jd. betont <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"leben",pres3:"lebt",pii:"gelebt",example:"Ich lebe in Berlin.",exampleTranslation:"我住在柏林。",meaning:"生活，居住",valence:"jd. lebt",category:"lektion4",verbType:"weak"},
+{infinitive:"brauchen",pres3:"braucht",pii:"gebraucht",example:"Ich brauche Hilfe.",exampleTranslation:"我需要帮助。",meaning:"需要",valence:"jd. braucht <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"müssen",pres3:"muss",pii:"gemusst",example:"Ich muss lernen.",exampleTranslation:"我必须学习。",meaning:"必须",valence:"jd. muss + Inf",category:"lektion4",verbType:"modal"},
+{infinitive:"bezahlen",pres3:"bezahlt",pii:"bezahlt",example:"Bezahlen Sie die Rechnung!",exampleTranslation:"请付账单！",meaning:"支付",valence:"jd. bezahlt <span class=\"akk-bg\">Akk</span>",category:"lektion4",verbType:"weak"},
+{infinitive:"können",pres3:"kann",pii:"gekonnt",example:"Ich kann Deutsch sprechen.",exampleTranslation:"我会说德语。",meaning:"能够，会",valence:"jd. kann + Inf",category:"lektion4",verbType:"modal"}
+];
+let filteredVerbs=[];
+let currentCategory='全部随机';
+document.addEventListener('DOMContentLoaded',function(){
+updateStats();
+setTimeout(()=>{filterVerbs('全部随机');},1000);
+optimizeForMobile();
+});
+function optimizeForMobile(){
+const isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||window.innerWidth<=768;
+if(isMobile){
+const cards=document.querySelectorAll('.card');
+cards.forEach(card=>{card.style.transition='transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)'});
+document.addEventListener('touchstart',function(e){if(e.target.closest('.card'))e.target.closest('.card').style.transform='scale(0.98)'},{passive:true});
+document.addEventListener('touchend',function(e){if(e.target.closest('.card'))e.target.closest('.card').style.transform=''},{passive:true});
+}
+}
+function updateStats(){
+document.getElementById('total-count').textContent=verbs.length;
+document.getElementById('category-count').textContent=filteredVerbs.length;
+const footerTotal=document.getElementById('footer-total-count');
+if(footerTotal)footerTotal.innerHTML=`总计: ${verbs.length}个 | 标注：三格(<span class="dat-bg">Dat</span>) 四格(<span class="akk-bg">Akk</span>)`;
+const lektionInfo=getLektionInfo(currentCategory);
+const statsElement=document.querySelector('.stats');
+if(statsElement){
+statsElement.innerHTML=`<div class="stats-content">
+<div class="stat-item"><span class="stat-number" id="total-count">${verbs.length}</span><div class="stat-label">总动词数</div></div>
+<div class="stat-item"><span class="stat-number" id="category-count">${filteredVerbs.length}</span><div class="stat-label">当前单元</div></div>
+<div class="stat-item"><div class="valence-info" style="color:${lektionInfo.color};font-weight:600">${lektionInfo.name}</div><div class="stat-label">${lektionInfo.description}</div></div>
+</div>`;
+}
+}
+function shouldHighlightPres3(verbType){
+switch(verbType){
+case 'weak':return false;
+case 'mixed':return false;
+case 'strong':return true;
+case 'irregular':return true;
+case 'modal':return true;
+default:return false;
+}
+}
+function shouldHighlightPII(verbType){
+switch(verbType){
+case 'weak':return false;
+case 'mixed':return true;
+case 'strong':return true;
+case 'irregular':return true;
+case 'modal':return true;
+default:return false;
+}
+}
+function formatPII(verb){
+if(verb.infinitive==='möchten')return '-';
+return verb.pii||verb.infinitive;
+}
+function filterVerbs(category,targetElement){
+currentCategory=category;
+document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active'));
+if(targetElement)targetElement.classList.add('active');
+else{
+const targetBtn=document.querySelector(`[onclick*="'${category}'"]`);
+if(targetBtn)targetBtn.classList.add('active');
+}
+if(category==='全部随机'){
+filteredVerbs=[...verbs];
+for(let i=filteredVerbs.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));
+[filteredVerbs[i],filteredVerbs[j]]=[filteredVerbs[j],filteredVerbs[i]];
+}
+}else{
+filteredVerbs=verbs.filter(verb=>verb.category===category);
+}
+updateStats();
+renderCards();
+}
+function getLektionInfo(category){
+const lektionInfo={
+'lektion1':{name:'Lektion 1',description:'第一单元',color:'#3498db'},
+'lektion2':{name:'Lektion 2',description:'第二单元',color:'#e74c3c'},
+'lektion3':{name:'Lektion 3',description:'第三单元',color:'#27ae60'},
+'lektion4':{name:'Lektion 4',description:'第四单元',color:'#f39c12'}
+};
+if(category==='全部随机')return{name:'全部随机',description:'所有动词(随机顺序)',color:'#2c3e50'};
+return lektionInfo[category]||{name:'全部',description:'所有动词',color:'#2c3e50'};
+}
+function renderCards(){
+const container=document.getElementById('cardsContainer');
+if(filteredVerbs.length===0&&currentCategory!=='全部随机'){
+container.innerHTML='<div class="loader"><i class="fas fa-info-circle"></i><div>该类别下没有动词</div></div>';
+return;
+}
+if(filteredVerbs.length===0)return;
+const fragment=document.createDocumentFragment();
+filteredVerbs.forEach(verb=>{
+const card=document.createElement('div');
+card.className='card';
+card.innerHTML=`<div class="card-inner">
+<div class="card-face card-front">
+<div class="verb-header">
+<div class="verb-name">${verb.infinitive}</div>
+<button class="speak-btn" onclick="speakWordAndExample('${verb.infinitive}','${verb.example}',event)"><i class="fas fa-volume-up"></i></button>
+</div>
+<div class="verb-forms">
+<div class="form-item"><span class="form-label">单三:</span><span class="form-value ${shouldHighlightPres3(verb.verbType)?'highlight':''}">${verb.pres3}</span></div>
+<div class="form-item"><span class="form-label">PII:</span><span class="form-value ${shouldHighlightPII(verb.verbType)?'highlight':''}">${formatPII(verb)}</span></div>
+</div>
+<div class="verb-example">${verb.example}</div>
+</div>
+<div class="card-face card-back">
+<div class="card-back-content">
+<div class="card-back-top">
+<div class="valence">${verb.valence}</div>
+<div class="meaning">${verb.meaning}</div>
+</div>
+<div class="card-back-bottom">
+<div class="card-hint"><i class="fas fa-sync-alt"></i> 点击翻转卡片</div>
+<div class="example-translation">${verb.exampleTranslation}</div>
+</div>
+</div>
+</div>
+</div>`;
+card.addEventListener('click',function(e){
+if(!e.target.closest('.speak-btn')){
+card.classList.toggle('flipped');
+if(card.classList.contains('flipped')){
+setTimeout(()=>{speakWordAndMeaning(verb.infinitive,verb.meaning,e);},300);
+}
+}
+});
+fragment.appendChild(card);
+});
+container.innerHTML='';
+container.appendChild(fragment);
+if(window.innerWidth<=768)optimizeForMobile();
+}
+let currentGermanUtterance=null;
+let currentChineseUtterance=null;
+let isGermanSpeaking=false;
+let isChineseSpeaking=false;
+function speakWordAndExample(word,example,event){
+event.stopPropagation();
+if('speechSynthesis' in window){
+stopCurrentSpeech();
+const utterance=new SpeechSynthesisUtterance(word);
+utterance.lang='de-DE';
+utterance.rate=0.8;
+utterance.onstart=function(){isGermanSpeaking=true;};
+utterance.onend=function(){isGermanSpeaking=false;};
+speechSynthesis.speak(utterance);
+}
+}
+function speakWordAndMeaning(word,meaning,event){
+if('speechSynthesis' in window){
+stopCurrentSpeech();
+currentGermanUtterance=new SpeechSynthesisUtterance(word);
+currentGermanUtterance.lang='de-DE';
+currentGermanUtterance.rate=0.8;
+currentChineseUtterance=new SpeechSynthesisUtterance(meaning);
+currentChineseUtterance.lang='zh-CN';
+currentChineseUtterance.rate=1.0;
+currentGermanUtterance.onstart=function(){isGermanSpeaking=true;};
+currentGermanUtterance.onend=function(){
+isGermanSpeaking=false;
+if(currentChineseUtterance&&!isGermanSpeaking){
+setTimeout(()=>{
+if(currentChineseUtterance){
+currentChineseUtterance.onstart=function(){isChineseSpeaking=true;};
+currentChineseUtterance.onend=function(){isChineseSpeaking=false;};
+speechSynthesis.speak(currentChineseUtterance);
+}
+},300);
+}
+};
+speechSynthesis.speak(currentGermanUtterance);
+}
+}
+function stopCurrentSpeech(){
+if('speechSynthesis' in window){
+speechSynthesis.cancel();
+isGermanSpeaking=false;
+isChineseSpeaking=false;
+currentGermanUtterance=null;
+currentChineseUtterance=null;
+}
+}
+</script>
+</body>
+</html>
